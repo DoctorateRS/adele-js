@@ -6,6 +6,8 @@
         "lineWidth": 144
     },
     "organizeImports": {
-        "include": ["src/*"]
+        "include": [
+            "src/*"
+        ]
     }
 }
