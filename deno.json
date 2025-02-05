@@ -1,10 +1,15 @@
 {
     "$schema": "https://deno.land/x/deno@v2.1.9/cli/schemas/config-file.v1.json",
     "imports": {
-        "hono": "jsr:@hono/hono@^4.6.20"
+        "express": "npm:express@^4.21.2",
+        "hono": "npm:hono@^4.6"
     },
     "tasks": {
         "start": "deno run --allow-net --allow-read --allow-write src/main.ts"
+    },
+    "fmt": {
+        "lineWidth": 144,
+        "indentWidth": 4
     },
     "compilerOptions": {}
 }
