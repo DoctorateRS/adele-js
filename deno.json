@@ -4,6 +4,10 @@
     "imports": {
         "oak": "jsr:@oak/oak"
     },
+    "fmt": {
+        "indentWidth": 4,
+        "lineWidth": 144
+    },
     "lint": {
         "include": [
             "src/"
