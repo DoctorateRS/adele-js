@@ -1,6 +1,6 @@
-import JsonUtils from "./json.ts";
-import oldVersionConfig from "../../config/version.json" with { type: "json" };
-import oldNetworkConfig from "../../config/network.json" with { type: "json" };
+import JsonUtils from "../json.ts";
+import oldVersionConfig from "../../../config/version.json" with { type: "json" };
+import oldNetworkConfig from "../../../config/network.json" with { type: "json" };
 
 async function updateConfig(): Promise<boolean> {
     let flag = false;

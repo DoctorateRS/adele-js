@@ -1,4 +1,4 @@
-import JsonUtils from "./json.ts";
+import JsonUtils from "../json.ts";
 
 const baseUrl = "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/excel/";
 
