@@ -1,8 +1,14 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@zip-js/zip-js@^2.7.57": "2.7.57",
     "npm:biome@0.3.3": "0.3.3",
     "npm:hono@^4.6.0": "4.6.20"
+  },
+  "jsr": {
+    "@zip-js/zip-js@2.7.57": {
+      "integrity": "15465ff627e321775870ad493bc043ca2d97940bda58d709c49908d39f4b0524"
+    }
   },
   "npm": {
     "ajv@6.12.6": {
@@ -576,6 +582,7 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@zip-js/zip-js@^2.7.57",
       "npm:hono@^4.6.0"
     ]
   }

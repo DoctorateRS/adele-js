@@ -1,14 +1,7 @@
 {
     "cn": {
-        "android": {
-            "resVersion": "24-11-06-06-00-35-a898d4",
-            "clientVersion": "2.4.01"
-        }
+        "resVersion": "25-02-07-05-28-44-c1ba2a",
+        "clientVersion": "2.4.41"
     },
-    "global": {
-        "android": {
-            "resVersion": "24-10-21-19-30-04-a2f622",
-            "clientVersion": "25.2.61"
-        }
-    }
+    "global": {}
 }

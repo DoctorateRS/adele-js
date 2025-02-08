@@ -4,6 +4,10 @@ export interface JsonUtilities {
     fs: FsSync;
     readJson(path: string): object;
     writeJson(path: string, object: object): void;
+    fetchJson(url: string | URL): Promise<object>;
+
+    readJsonAs<T>(path: string): T;
+    fetchJsonAs<T>(url: string | URL): Promise<T>;
 }
 
 export class JsonTools implements JsonUtilities {
@@ -19,6 +23,20 @@ export class JsonTools implements JsonUtilities {
 
     writeJson(path: string, object: object): void {
         this.fs.writeTextFile(path, JSON.stringify(object, undefined, 4));
+    }
+
+    async fetchJson(url: string | URL): Promise<object> {
+        const req = await fetch(url);
+        return JSON.parse(await req.text());
+    }
+
+    readJsonAs<T>(path: string): T {
+        return JSON.parse(this.fs.readTextFile(path));
+    }
+
+    async fetchJsonAs<T>(url: string | URL): Promise<T> {
+        const req = await fetch(url);
+        return JSON.parse(await req.text());
     }
 }
 

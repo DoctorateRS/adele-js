@@ -1,9 +1,10 @@
 import { assetsConfig, serverConfig } from "./settings.ts";
 import app from "./adele/app.ts";
-import updateExcel from "./utils/updateExcel.ts";
+import updateConfig from "./utils/update/updateConfig.ts";
+import updateExcel from "./utils/update/updateExcel.ts";
 
 if (assetsConfig.autoUpdate) {
-    await updateExcel();
+    if (await updateConfig()) await updateExcel();
 }
 
 console.log(`Server is running on ${serverConfig.host}:${serverConfig.port}`);

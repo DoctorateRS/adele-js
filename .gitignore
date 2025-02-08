@@ -1,4 +1,4 @@
 .vscode/
 ./*.lock
-/assets
-
+./assets
+!./assets/assetsList.json
