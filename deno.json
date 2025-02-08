@@ -1,7 +1,6 @@
 {
     "$schema": "https://deno.land/x/deno@v2.1.9/cli/schemas/config-file.v1.json",
     "imports": {
-        "express": "npm:express@^4.21.2",
         "hono": "npm:hono@^4.6"
     },
     "tasks": {

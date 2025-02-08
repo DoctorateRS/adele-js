@@ -1,12 +1,17 @@
 import { Hono } from "hono";
-import JsonUtils from "../utils/helper.ts";
+import { AssetsList } from "../utils/asset.ts";
 const asset = new Hono();
 
-asset.all("/:res/:asset", async (c) => {
-    const { res, asset } = c.req.param();
-    await Deno.mkdir(`./assets/${asset}/redirect/`, { recursive: true });
+const assetsList = new AssetsList();
 
-    return c.text(`Assets test ${res}/${asset}/`);
+asset.all("/:hash/:name", async (c) => {
+    const { hash, name } = c.req.param();
+    await Deno.mkdir(`./assets/${hash}/redirect/`, { recursive: true });
+
+    assetsList.addEntry(name, hash);
+    assetsList.update();
+
+    return c.text(`Assets test ${hash}/${name}/`);
 });
 
 export default asset;
