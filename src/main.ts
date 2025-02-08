@@ -1,19 +1,10 @@
-import { Hono } from "hono";
-import settings from "../config/config.json" with { type: "json" };
-import asset from "./adele/assetbundle.ts";
+import { assetsConfig, serverConfig } from "./settings.ts";
+import app from "./adele/app.ts";
+import updateExcel from "./utils/updateExcel.ts";
 
-const app = new Hono();
+if (assetsConfig.autoUpdate) {
+    await updateExcel();
+}
 
-app.route("/assetbundle/official/Android/assets", asset);
-
-app.all("/", (c) => {
-    return c.text("Hello from Eyjafjalla!.");
-});
-
-app.notFound((c) => {
-    const req = c.req;
-    return c.text(`Unknown url : ${req.url}`, 404);
-});
-
-console.log(`Server is running on ${settings.server.host}:${settings.server.port}.`);
-Deno.serve({ hostname: settings.server.host, port: settings.server.port }, app.fetch);
+console.log(`Server is running on ${serverConfig.host}:${serverConfig.port}`);
+Deno.serve({ hostname: serverConfig.host, port: serverConfig.port }, app.fetch);

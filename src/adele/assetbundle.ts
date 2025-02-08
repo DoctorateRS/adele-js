@@ -8,7 +8,7 @@ asset.all("/:hash/:name", async (c) => {
     const { hash, name } = c.req.param();
     await Deno.mkdir(`./assets/${hash}/redirect/`, { recursive: true });
 
-    assetsList.addEntry(name, hash);
+    assetsList.addEntry(hash, name);
     assetsList.update();
 
     return c.text(`Assets test ${hash}/${name}/`);

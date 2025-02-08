@@ -21,20 +21,32 @@ const Dl = new AssetDownloader();
 export default Dl;
 
 export class AssetsList {
-    assets: Map<string, string[]>;
+    assets: { [key: string]: string[] };
 
     constructor() {
-        this.assets = JsonUtils.readJson("./assets/assetsList.json");
+        this.assets = {};
+
+        for (const [hash, names] of Object.entries(JsonUtils.readJson("./assets/assetsList.json"))) {
+            this.assets[hash] = names;
+        }
     }
 
-    addEntry(hash: string, name: string): void {
-        const entries = this.assets.get(hash);
-        if (entries === undefined) {
-            this.assets.set(hash, [name]);
+    addEntry(hash: string, name?: string): void {
+        if (name !== undefined) {
+            const entries = this.assets[hash];
+            if (entries === undefined) {
+                this.assets[hash] = [name];
+            } else {
+                entries.push(name);
+                this.assets[hash] = entries;
+            }
         } else {
-            entries.push(name);
-            this.assets.set(hash, entries);
+            this.assets[hash] = [];
         }
+    }
+
+    clear(): void {
+        this.assets = {};
     }
 
     update(): void {

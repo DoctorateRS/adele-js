@@ -13,11 +13,11 @@ export class JsonTools implements JsonUtilities {
         this.fs = new FsSync();
     }
 
-    readJson<T>(path: string): T {
+    readJson(path: string): object {
         return JSON.parse(this.fs.readTextFile(path));
     }
 
-    writeJson<T>(path: string, object: T): void {
+    writeJson(path: string, object: object): void {
         this.fs.writeTextFile(path, JSON.stringify(object, undefined, 4));
     }
 }
