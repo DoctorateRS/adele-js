@@ -3,7 +3,10 @@ import app from "./adele/app.ts";
 import updateConfig from "./utils/update/updateConfig.ts";
 import updateExcel from "./utils/update/updateExcel.ts";
 
-if (assetsConfig.autoUpdate) {
+// FOR DEBUG PURPOSE
+const override = true;
+
+if (assetsConfig.autoUpdate && !override) {
     if (await updateConfig()) await updateExcel();
 }
 
