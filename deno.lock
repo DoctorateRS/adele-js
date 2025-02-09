@@ -1,13 +1,40 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@zip-js/zip-js@^2.7.57": "2.7.57",
+    "jsr:@quentinadam/assert@~0.1.10": "0.1.10",
+    "jsr:@quentinadam/require@~0.1.4": "0.1.4",
+    "jsr:@quentinadam/uint8array-extension@~0.1.5": "0.1.5",
+    "jsr:@quentinadam/zip@0.1": "0.1.4",
+    "jsr:@sigma/rust-base64@0.2": "0.2.7",
     "npm:biome@0.3.3": "0.3.3",
     "npm:hono@^4.6.0": "4.6.20"
   },
   "jsr": {
-    "@zip-js/zip-js@2.7.57": {
-      "integrity": "15465ff627e321775870ad493bc043ca2d97940bda58d709c49908d39f4b0524"
+    "@quentinadam/assert@0.1.10": {
+      "integrity": "623eb01c4eb8bbe6420abcbc06792dbd5ca4301c270ac04b3745deac099f70df"
+    },
+    "@quentinadam/require@0.1.4": {
+      "integrity": "ef2a475d3fc241817470e540bd892ac23520d620ffb23b7796c940df31391c72",
+      "dependencies": [
+        "jsr:@quentinadam/assert"
+      ]
+    },
+    "@quentinadam/uint8array-extension@0.1.5": {
+      "integrity": "d7ccf8c8841947c7410c2db3249eb88a77bc1677b2a1c945971b8ead57e725b4",
+      "dependencies": [
+        "jsr:@quentinadam/assert"
+      ]
+    },
+    "@quentinadam/zip@0.1.4": {
+      "integrity": "d6a2ebafae4358d495dfbb80d7ac7494d6ed81132902a8d9b1943b9313487a15",
+      "dependencies": [
+        "jsr:@quentinadam/assert",
+        "jsr:@quentinadam/require",
+        "jsr:@quentinadam/uint8array-extension"
+      ]
+    },
+    "@sigma/rust-base64@0.2.7": {
+      "integrity": "3b9c878f2187f81e0c50516fe554ac706da7d416384c147e66d26e423eaff818"
     }
   },
   "npm": {
@@ -582,7 +609,8 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@zip-js/zip-js@^2.7.57",
+      "jsr:@quentinadam/zip@0.1",
+      "jsr:@sigma/rust-base64@0.2",
       "npm:hono@^4.6.0"
     ]
   }

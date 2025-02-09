@@ -1,7 +1,8 @@
 {
     "$schema": "https://deno.land/x/deno@v2.1.9/cli/schemas/config-file.v1.json",
     "imports": {
-        "zip": "jsr:@zip-js/zip-js@^2.7",
+        "base64": "jsr:@sigma/rust-base64@^0.2",
+        "zip": "jsr:@quentinadam/zip@^0.1",
         "hono": "npm:hono@^4.6"
     },
     "tasks": {
