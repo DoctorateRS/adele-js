@@ -1,5 +1,5 @@
 import { assetsConfig, serverConfig } from "./settings.ts";
-import app from "./adele/app.ts";
+import app from "./adele/application.ts";
 import updateConfig from "./utils/update/updateConfig.ts";
 import updateExcel from "./utils/update/updateExcel.ts";
 
