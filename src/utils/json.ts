@@ -8,6 +8,8 @@ export interface JsonUtilities {
 
     readJsonAs<T>(path: string): T;
     fetchJsonAs<T>(url: string | URL): Promise<T>;
+
+    stringifyJson(object: object): string;
 }
 
 export class JsonTools implements JsonUtilities {
@@ -37,6 +39,10 @@ export class JsonTools implements JsonUtilities {
     async fetchJsonAs<T>(url: string | URL): Promise<T> {
         const req = await fetch(url);
         return JSON.parse(await req.text());
+    }
+
+    stringifyJson(object: object): string {
+        return JSON.stringify(object, undefined, 4);
     }
 }
 

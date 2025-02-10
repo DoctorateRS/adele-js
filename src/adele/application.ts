@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import log from "../utils/logging.ts";
+import log, { adeleLogger } from "../utils/logging.ts";
 import asset from "./assetbundle.ts";
 import account from "./account.ts";
 import { StaticPlayerDataDelta } from "../playerData/delta.ts";
@@ -10,6 +10,7 @@ import crisisV2 from "./crisis.ts";
 const app = new Hono();
 const staticPdd = new StaticPlayerDataDelta();
 
+app.use(adeleLogger);
 app.use(logger(log));
 
 app.route("/assetbundle/official/Android/assets", asset);

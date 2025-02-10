@@ -10,15 +10,13 @@ class CrisisRecord {
     previousScore: number[];
 
     constructor(previousMaxScore?: number, previousScore?: number[]) {
-        if (previousMaxScore) this.previousMaxScore = previousMaxScore;
-        else this.previousMaxScore = 0;
-        if (previousScore) this.previousScore = previousScore;
-        else this.previousScore = [0, 0, 0, 0, 0, 0];
+        this.previousMaxScore = previousMaxScore !== undefined ? previousMaxScore : 0;
+        this.previousScore = previousScore !== undefined ? previousScore : [0, 0, 0, 0, 0, 0];
     }
 
     update(newMaxScore?: number, newScore?: number[]) {
-        if (newMaxScore) this.previousMaxScore = newMaxScore;
-        if (newScore) this.previousScore = newScore;
+        this.previousMaxScore = newMaxScore !== undefined ? newMaxScore : this.previousMaxScore;
+        this.previousScore = newScore !== undefined ? newScore : this.previousScore;
 
         JsonUtils.writeJson("./resources/user/crisisRecord.json", this);
     }
@@ -74,7 +72,7 @@ crisisV2.post("/battleFinish", (c) => {
 
     const scoreCurrent = [0, 0, 0, 0, 0, 0];
 
-    let runeIds = [];
+    const runeIds = [];
     const nodes = {};
 
     const nodeDataMap = runes.info.mapDetailDataMap[battleData.mapId].nodeDataMap;

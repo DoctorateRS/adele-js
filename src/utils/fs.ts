@@ -14,12 +14,12 @@ export class FsSync implements FsSyncInterface {
         return Deno.readTextFileSync(path);
     }
 
-    writeFile(path: string, content: Uint8Array): void {
-        Deno.writeFileSync(path, content, { create: true });
+    writeFile(path: string, content: Uint8Array, options?: Deno.WriteFileOptions): void {
+        options ? Deno.writeFileSync(path, content, options) : Deno.writeFileSync(path, content, { create: true });
     }
 
-    writeTextFile(path: string, content: string): void {
-        Deno.writeTextFileSync(path, content, { create: true });
+    writeTextFile(path: string, content: string, options?: Deno.WriteFileOptions): void {
+        options ? Deno.writeTextFileSync(path, content, options) : Deno.writeTextFileSync(path, content, { create: true });
     }
 }
 

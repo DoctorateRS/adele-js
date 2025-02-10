@@ -6,7 +6,7 @@ async function updateConfig(): Promise<boolean> {
     let flag = false;
     const newVersionConfig = await JsonUtils.fetchJsonAs<VersionConfig>("https://ak-conf.hypergryph.com/config/prod/official/Android/version");
 
-    if (oldVersionConfig.cn != newVersionConfig) {
+    if (oldVersionConfig.cn !== newVersionConfig) {
         flag = true;
         JsonUtils.writeJson("./config/version.json", { cn: newVersionConfig, global: {} });
     }
@@ -15,8 +15,8 @@ async function updateConfig(): Promise<boolean> {
     const newNetworkConfigContent: NetworkConfigContent = JSON.parse(newNetworkConfig.content);
 
     if (
-        oldNetworkConfig.cn.content.configVer != newNetworkConfigContent.configVer ||
-        oldNetworkConfig.cn.content.funcVer != newNetworkConfigContent.funcVer
+        oldNetworkConfig.cn.content.configVer !== newNetworkConfigContent.configVer ||
+        oldNetworkConfig.cn.content.funcVer !== newNetworkConfigContent.funcVer
     ) {
         JsonUtils.writeJson("./config/network.json", {
             cn: {
@@ -48,6 +48,7 @@ async function updateConfig(): Promise<boolean> {
             },
             global: {},
         });
+        flag = true;
     }
 
     return flag;
@@ -82,8 +83,8 @@ interface NetworkConfigContent {
                 prean: string;
                 sl: string;
                 of: string;
-                pkgAd: string | undefined | null;
-                pkgIOS: string | undefined | null;
+                pkgAd: string | null;
+                pkgIOS: string | null;
                 secure: boolean;
             };
         };
