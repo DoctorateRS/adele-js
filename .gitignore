@@ -1,5 +1,6 @@
 .vscode/
 ./*.lock
 ./assets
-./dist
+./dist/
+./dump/*.log
 !./assets/assetsList.json

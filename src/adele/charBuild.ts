@@ -61,4 +61,26 @@ charBuild.post("/setCharVoiceLan", async (c) => {
     return c.json(data);
 });
 
+charBuild.post("/setDefaultSkill", async (c) => {
+    const { charInstId, defaultSkillIndex } = await c.req.json();
+
+    const data = {
+        playerDataDelta: {
+            deleted: {},
+            modified: {
+                troop: {
+                    chars: {},
+                },
+            },
+        },
+    };
+
+    const savedUserData = DefaultUserData.readUserData();
+    data.playerDataDelta.modified.troop.chars[charInstId.toString()].defaultSkillIndex = defaultSkillIndex;
+    savedUserData.user.troop.chars[charInstId.toString()].defaultSkillIndex = defaultSkillIndex;
+
+    DefaultUserData.writeUserData(savedUserData);
+    return c.json(data);
+});
+
 export default charBuild;
