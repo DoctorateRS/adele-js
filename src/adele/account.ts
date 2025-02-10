@@ -276,6 +276,70 @@ account.post("/syncData", (c) => {
     playerSyncData.user.troop.charGroup = charGroup;
     playerSyncData.user.troop.curCharInstId = cntInstId;
 
+    const storyList = { ["init"]: 1 };
+    for (const story of Object.keys(DefaultExcelTableReader.storyTable())) {
+        storyList[story] = 1;
+    }
+
+    const stageList = {};
+    const stageTable = DefaultExcelTableReader.stageTable();
+    playerSyncData.user.status.flags = storyList;
+    for (const stage of Object.keys(stageTable.stages)) {
+        if (stage.startsWith("camp")) {
+            playerSyncData.user.campaignsV2.open.permanent.push(stage);
+            playerSyncData.user.campaignsV2.open.training.push(stage);
+            playerSyncData.user.campaignsV2.sweepMaxKills[stage] = 400;
+            playerSyncData.user.campaignsV2.instances[stage] = {
+                maxKills: 400,
+                rewardStatus: [1, 1, 1, 1, 1, 1, 1, 1],
+            };
+        }
+
+        stageList[stage] = {
+            completeTimes: 1,
+            hasBattleReplay: 0,
+            noCostCnt: 0,
+            practiceTimes: 0,
+            stageId: stageTable.stages[stage].stageId,
+            startTimes: 1,
+            state: 3,
+        };
+    }
+
+    playerSyncData.user.dungeon.stages = stageList;
+
+    const addonList = {};
+    const addonTable = DefaultExcelTableReader.handbookInfoTable();
+
+    for (const charId of Object.keys(addonTable.handbookDict)) {
+        const charStoryList = { story: {} };
+        const story = addonTable.handbookDict[charId].handbookAvgList;
+
+        let cnt = 0;
+        for (const storySet of story) {
+            if (Object.hasOwn(storySet, "storySetId")) {
+                charStoryList.story[storySet.storySetId] = { fts: ts, rts: ts };
+            }
+
+            cnt += 1;
+        }
+
+        addonList[charId] = charStoryList;
+    }
+
+    for (const stageId of Object.keys(addonTable.handboolStageData)) {
+        addonList[charId].stage[addonTable.handboolStageData[stageId].stageId] = {
+            startTimes: 0,
+            completeTimes: 1,
+            state: 3,
+            fts: ts,
+            rts: ts,
+            startTime: 2,
+        };
+    }
+
+    playerSyncData.user.troop.addon = addonList;
+
     JsonUtils.writeJson("./resources/user/user.json", playerSyncData);
     return c.json(playerSyncData);
 });
