@@ -1,13 +1,14 @@
-import JsonUtils, { JsonTools } from "./json.ts";
+import JsonUtils from "./json.ts";
 
 export class UserData {
     userJsonPath: string;
-    json: JsonTools;
-    constructor(userJsonPath?: string) {
-        this.json = JsonUtils;
-        this.userJsonPath = "./resources/user/user.json";
+    syncJsonPath: string;
+    json = JsonUtils;
 
-        if (userJsonPath) this.userJsonPath = userJsonPath;
+    constructor(userJsonPath?: string, syncJsonPath?: string) {
+        this.json = JsonUtils;
+        this.userJsonPath = userJsonPath ? userJsonPath : "./resources/user/user.json";
+        this.syncJsonPath = syncJsonPath ? syncJsonPath : "./resources/user/syncData.json";
     }
 
     readUserData() {
@@ -16,6 +17,14 @@ export class UserData {
 
     writeUserData(userData: object) {
         this.json.writeJson(this.userJsonPath, userData);
+    }
+
+    readSyncData() {
+        return this.json.readJson(this.syncJsonPath);
+    }
+
+    writeSyncData(syncData: object) {
+        this.json.writeJson(this.syncJsonPath, syncData);
     }
 }
 

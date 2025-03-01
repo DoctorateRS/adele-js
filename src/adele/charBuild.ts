@@ -34,7 +34,7 @@ charBuild.post("/addonStory/unlock", async (c) => {
     data.playerDataDelta.modified.troop.addon[req.storyId] = { story: { [req.storyId]: ts } };
 
     DefaultUserData.writeUserData(savedUserData);
-    return data;
+    return c.json(data);
 });
 
 charBuild.post("/setCharVoiceLan", async (c) => {

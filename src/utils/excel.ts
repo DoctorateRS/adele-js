@@ -4,9 +4,9 @@ export class ExcelTableReader {
     basePath: string;
     json: JsonTools;
 
-    constructor(basePath: string) {
+    constructor(basePath?: string) {
         this.json = JsonUtils;
-        this.basePath = basePath;
+        this.basePath = basePath ? basePath : "./resources/excel/";
     }
 
     internal(name: string): object {
@@ -158,5 +158,5 @@ export class ExcelTableReader {
     }
 }
 
-const DefaultExcelTableReader = new ExcelTableReader("./resources/excel/");
+const DefaultExcelTableReader = new ExcelTableReader();
 export default DefaultExcelTableReader;
