@@ -20,38 +20,38 @@ export class AssetsDownloaderClass {
 }
 
 const AssetsDownloader = new AssetsDownloaderClass();
-export default AssetsDownloader;
 
 export class AssetsList {
     assets: { [key: string]: string[] };
 
     constructor() {
-        this.assets = {};
-
-        for (const [hash, names] of Object.entries(JsonUtils.readJson("./assets/assetsList.json"))) {
-            this.assets[hash] = names;
+        try {
+            const assets = JsonUtils.readJsonAs<{ [key: string]: string[] }>("./assets/assetsList.json");
+            this.assets = assets;
+        } catch {
+            this.assets = {};
         }
     }
 
-    addEntry(hash: string, name?: string): void {
-        if (name !== undefined) {
-            const entries = this.assets[hash];
-            if (entries === undefined) {
-                this.assets[hash] = [name];
-            } else {
-                entries.push(name);
-                this.assets[hash] = entries;
+    addEntry(hash: string, name?: string) {
+        if (this.assets[hash]) {
+            if (name) {
+                this.assets[hash].push(name);
             }
         } else {
             this.assets[hash] = [];
         }
     }
 
-    clear(): void {
+    clear() {
         this.assets = {};
     }
 
-    update(): void {
+    update() {
         JsonUtils.writeJson("./assets/assetsList.json", this.assets);
     }
 }
+
+const AssetsLists = new AssetsList();
+
+export default [AssetsDownloader, AssetsLists];

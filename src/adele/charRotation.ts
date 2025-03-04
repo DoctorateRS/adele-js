@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import DefaultUserData from "../utils/userData.ts";
-import user from "./user.ts";
 import DefaultConfigManager from "../utils/config.ts";
 
 const secretarySearcher = new RegExp("^[^@#]+");
@@ -171,8 +170,32 @@ charRotation.post("/updatePreset", async (c) => {
     }
 
     if (req.data.profile) {
-        const secretary = secretarySearcher.exec(req.data.profile);
+        const secretary = secretarySearcher.exec(req.data.profile).join();
+
+        cfg.userConfig.secretary = secretary;
+        cfg.userConfig.secretarySkinId = req.data.profile;
+
+        result.playerDataDelta.modified["status"] = {
+            secretary: secretary,
+            secretarySkinId: req.data.profile,
+            profileInst: "",
+        };
+
+        result.playerDataDelta.modified["charRotation"].preset[instId].slots = req.data.slots;
+        result.playerDataDelta.modified["charRotation"].profileInst = req.data.profileInst;
+
+        syncData.user.status.secretary = secretary;
+        syncData.user.status.secretarySkinId = req.data.profile;
+
+        syncData.user.charRotation.preset[instId].slots = req.data.slots;
+        syncData.user.charRotation.profileInst = req.data.profileInst;
+
+        userData.user.charRotation = syncData.user.charRotation;
+        DefaultUserData.writeUserData(userData);
     }
+
+    DefaultUserData.writeSyncData(syncData);
+    DefaultConfigManager.writeConfig(cfg);
 
     return c.json(result);
 });

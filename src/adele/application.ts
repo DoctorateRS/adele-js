@@ -8,6 +8,7 @@ import pay from "./pay.ts";
 import crisisV2 from "./crisis.ts";
 import charBuild from "./charBuild.ts";
 import campaignV2 from "./campaignV2.ts";
+import charRotation from "./charRotation.ts";
 
 const app = new Hono();
 const staticPdd = new StaticPlayerDataDelta();
@@ -19,6 +20,7 @@ app.route("/assetbundle/official/Android/assets", asset);
 app.route("/account", account);
 app.route("/campaignV2", campaignV2);
 app.route("/charBuild", charBuild);
+app.route("/charRotation", charRotation);
 app.route("/crisisV2", crisisV2);
 app.route("/pay", pay);
 
