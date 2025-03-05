@@ -3,7 +3,8 @@ import { Hono } from "hono";
 const templateShop = new Hono();
 
 templateShop.post("/BuyGood", async (c) => {
-    return c.json(await c.req.json());
+    const req = await c.req.json();
+    return c.json(req);
 });
 
 export default templateShop;

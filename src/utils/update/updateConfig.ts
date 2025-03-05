@@ -15,8 +15,8 @@ async function updateConfig(): Promise<boolean> {
     const newNetworkConfigContent: NetworkConfigContent = JSON.parse(newNetworkConfig.content);
 
     if (
-        oldNetworkConfig.cn.content.configVer !== newNetworkConfigContent.configVer ||
-        oldNetworkConfig.cn.content.funcVer !== newNetworkConfigContent.funcVer
+        oldNetworkConfig.cn.content.configVer != newNetworkConfigContent.configVer ||
+        oldNetworkConfig.cn.content.funcVer != newNetworkConfigContent.funcVer
     ) {
         JsonUtils.writeJson("./config/network.json", {
             cn: {

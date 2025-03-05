@@ -1,8 +1,8 @@
-import JsonUtils, { JsonTools } from "./json.ts";
+import JsonUtils from "./json.ts";
 
 export class ExcelTableReader {
     basePath: string;
-    json: JsonTools;
+    json = JsonUtils;
 
     constructor(basePath?: string) {
         this.json = JsonUtils;

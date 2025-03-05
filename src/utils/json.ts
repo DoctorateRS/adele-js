@@ -1,23 +1,9 @@
-import { FsSync } from "./fs.ts";
+import SyncFs from "./fs.ts";
 
-export interface JsonUtilities {
-    fs: FsSync;
-    readJson(path: string): object;
-    writeJson(path: string, object: object): void;
-    fetchJson(url: string | URL): Promise<object>;
+export class JsonTools {
+    fs = SyncFs;
 
-    readJsonAs<T>(path: string): T;
-    fetchJsonAs<T>(url: string | URL): Promise<T>;
-
-    stringifyJson(object: object): string;
-}
-
-export class JsonTools implements JsonUtilities {
-    fs: FsSync;
-
-    constructor() {
-        this.fs = new FsSync();
-    }
+    constructor() {}
 
     readJson(path: string): object {
         return JSON.parse(this.fs.readTextFile(path));
