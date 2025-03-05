@@ -1,16 +1,15 @@
-import JsonUtils, { JsonTools } from "./json.ts";
+import JsonUtils from "./json.ts";
 
 export class JsonDumper {
-    basePath: "./dump";
-    json: JsonTools;
+    basePath = "./dump";
+    json = JsonUtils;
 
-    constructor() {
-        this.json = JsonUtils;
-    }
+    constructor() {}
 
     dumpJson(object: object, extraIdent?: string) {
-        if (extraIdent) this.json.writeJson(`${this.basePath}/${extraIdent}${Date.now()}.json`, object);
-        else this.json.writeJson(`${this.basePath}/${Date.now()}.json`, object);
+        extraIdent
+            ? this.json.writeJson(`${this.basePath}/${extraIdent}${Date.now()}.json`, object)
+            : this.json.writeJson(`${this.basePath}/${Date.now()}.json`, object);
     }
 }
 

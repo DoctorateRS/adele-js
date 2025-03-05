@@ -1,10 +1,10 @@
 import { decodeBase64, encodeBase64 } from "base64";
 import { create, extract } from "zip";
-import SyncFs from "./fs.ts";
+import JsonUtils from "./json.ts";
 
 export class BattleReplayUtils {
     basePath: string;
-    fs = SyncFs;
+    json = JsonUtils;
     encoder = new TextEncoder();
     decoder = new TextDecoder();
 
@@ -12,12 +12,13 @@ export class BattleReplayUtils {
         basePath ? this.basePath = basePath : this.basePath = "./resources/user/batteReplay.json";
     }
 
-    async loadBattleReplayFromFile(): Promise<object> {
-        return await this.decrypt(this.fs.readTextFile(this.basePath));
+    loadBattleReplayFromFile(): object {
+        return this.json.readJson(this.basePath);
     }
 
     async decrypt(source: string): Promise<object> {
         const decodedData = decodeBase64(this.encoder.encode(source));
+
         for (const { name, data } of await extract(decodedData)) {
             if (name === "default_entry") {
                 return JSON.parse(this.decoder.decode(data));

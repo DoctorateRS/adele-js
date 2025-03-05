@@ -1,11 +1,4 @@
-export interface FsSyncInterface {
-    readFile(path: string): Uint8Array;
-    readTextFile(path: string): string;
-    writeFile(path: string, content: Uint8Array): void;
-    writeTextFile(path: string, content: string): void;
-}
-
-export class FsSync implements FsSyncInterface {
+export class FsSync {
     readFile(path: string): Uint8Array {
         return Deno.readFileSync(path);
     }
