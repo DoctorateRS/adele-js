@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import DefaultConfigManager from "../utils/config.ts";
 import { serverConfig } from "../settings.ts";
-import { JsonTools } from "../utils/json.ts";
 
 export const configProd = new Hono();
 
