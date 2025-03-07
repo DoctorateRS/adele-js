@@ -3,10 +3,7 @@ import app from "./app.ts";
 import updateConfig from "./utils/update/updateConfig.ts";
 import updateExcel from "./utils/update/updateExcel.ts";
 
-// FOR DEBUG PURPOSE
-const override = false;
-
-if (assetsConfig.autoUpdate && !override) {
+if (assetsConfig.autoUpdate && !serverConfig.enableServer) {
     if (await updateConfig()) await updateExcel();
 }
 

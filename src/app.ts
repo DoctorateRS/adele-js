@@ -11,6 +11,7 @@ import campaignV2 from "./adele/campaignV2.ts";
 import charRotation from "./adele/charRotation.ts";
 import pay from "./adele/pay.ts";
 import deepSea from "./adele/deepSea.ts";
+import { api, configProd } from "./adele/config.ts";
 
 const app = new Hono();
 const staticPdd = new StaticPlayerDataDelta();
@@ -20,9 +21,11 @@ app.use(logger(log));
 
 app.route("/assetbundle/official/Android/assets", asset);
 app.route("/account", account);
+app.route("/api", api);
 app.route("/campaignV2", campaignV2);
 app.route("/charBuild", charBuild);
 app.route("/charRotation", charRotation);
+app.route("/config/prod", configProd);
 app.route("/crisisV2", crisisV2);
 app.route("/deepSea", deepSea);
 app.route("/pay", pay);

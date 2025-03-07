@@ -5,7 +5,7 @@ export class ConfigManager {
     json = JsonUtils;
 
     constructor(configBasePath?: string) {
-        this.configBasePath = configBasePath ? configBasePath : "./config";
+        this.configBasePath = configBasePath ? configBasePath : "./config/";
     }
 
     readConfig() {
@@ -18,6 +18,14 @@ export class ConfigManager {
 
     readAssist() {
         return this.json.readJson(this.configBasePath.concat("assists.json"));
+    }
+
+    readVersionConfig() {
+        return this.json.readJson(this.configBasePath.concat("version.json"));
+    }
+
+    readNetworkConfig() {
+        return this.json.readJson(this.configBasePath.concat("network.json"));
     }
 }
 

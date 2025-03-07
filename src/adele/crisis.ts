@@ -24,7 +24,11 @@ class CrisisRecord {
 
 crisisV2.post("/getInfo", (c) => {
     if (settings.crisisV2Config.selectedCrisis !== "") {
-        return c.json(JsonUtils.readJson(`"./resources/cc/${settings.crisisV2Config.selectedCrisis}"`));
+        return c.json(
+            JsonUtils.readJson(
+                `"./resources/cc/${settings.crisisV2Config.selectedCrisis}"`,
+            ),
+        );
     } else {
         return c.json({
             info: {},
@@ -62,13 +66,17 @@ crisisV2.post("/battleFinish", (c) => {
             return e.name === "crisisRecord.json";
         })
     ) {
-        crisisRecord = JsonUtils.readJsonAs<CrisisRecord>("./resources/user/crisisRecord.json");
+        crisisRecord = JsonUtils.readJsonAs<CrisisRecord>(
+            "./resources/user/crisisRecord.json",
+        );
     } else {
         crisisRecord = new CrisisRecord();
     }
 
     const battleData = JsonUtils.readJson("./resources/user/rune.json");
-    const runes = JsonUtils.readJson(`"./resources/cc/${settings.crisisV2Config.selectedCrisis}"`);
+    const runes = JsonUtils.readJson(
+        `"./resources/cc/${settings.crisisV2Config.selectedCrisis}"`,
+    );
 
     const scoreCurrent = [0, 0, 0, 0, 0, 0];
 
@@ -85,7 +93,9 @@ crisisV2.post("/battleFinish", (c) => {
         const nodeSlotPackId = nodeData.slotPackId;
 
         if (!nodeSlotPackId) continue;
-        if (!Object.keys(nodes).includes(nodeSlotPackId)) nodes[nodeSlotPackId] = {};
+        if (!Object.keys(nodes).includes(nodeSlotPackId)) {
+            nodes[nodeSlotPackId] = {};
+        }
 
         let mutualExclusionGroup;
         if (nodeData.mutualExclusionGroup) {
@@ -116,7 +126,9 @@ crisisV2.post("/battleFinish", (c) => {
         let flag = true;
         for (const mutualExclusionGroup of Object.keys(nodes[slotPackId])) {
             let scoreMax = 0;
-            for (const slot of Object.values(nodes[slotPackId][mutualExclusionGroup])) {
+            for (
+                const slot of Object.values(nodes[slotPackId][mutualExclusionGroup])
+            ) {
                 scoreMax = max(scoreMax, slot);
             }
 
