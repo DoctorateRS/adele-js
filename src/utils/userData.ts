@@ -3,12 +3,14 @@ import JsonUtils from "./json.ts";
 export class UserData {
     userJsonPath: string;
     syncJsonPath: string;
+    battleReplayPath: string;
     json = JsonUtils;
 
-    constructor(userJsonPath?: string, syncJsonPath?: string) {
+    constructor(userJsonPath?: string, syncJsonPath?: string, battleReplayPath?: string) {
         this.json = JsonUtils;
         this.userJsonPath = userJsonPath ? userJsonPath : "./resources/user/user.json";
         this.syncJsonPath = syncJsonPath ? syncJsonPath : "./resources/user/syncData.json";
+        this.battleReplayPath = battleReplayPath ? battleReplayPath : "./resources/user/battleReplay.json";
     }
 
     readUserData() {
@@ -25,6 +27,14 @@ export class UserData {
 
     writeSyncData(syncData: object) {
         this.json.writeJson(this.syncJsonPath, syncData);
+    }
+
+    readBattleReplayData() {
+        return this.json.readJson(this.battleReplayPath);
+    }
+
+    writeBattleReplayData(battleReplay: object) {
+        this.json.writeJson(this.battleReplayPath, battleReplay);
     }
 }
 
