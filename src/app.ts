@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import { assets } from "./server/mod.ts";
+import { assets, charRotation, crisis, deepSea } from "./server/mod.ts";
 
 export const app = new Hono();
 
@@ -61,32 +61,34 @@ app.get("/assetbundle/official/Android/assets/:hash/:name", assets.downloadAsset
 // app.post("/charBuild/changeCharSkin", charBuild.charBuildChangeCharSkin);
 // app.post("/charBuild/setEquipment", charBuild.charBuildSetEquipment);
 // app.post("/charBuild/changeCharTemplate", charBuild.charBuildChangeCharTemplate);
-//
+
+app.post("/charRotation/setCurrent", charRotation.setCurrent);
+app.post("/charRotation/createPreset", charRotation.createPreset);
+app.post("/charRotation/deletePreset", charRotation.deletePreset);
+app.post("/charRotation/updatePreset", charRotation.updatePreset);
+
 // app.post("/charm/setSquad", charm.charmSetSquad);
 //
-// app.get("/config/prod/announce_meta/Android/preannouncement.meta.json", config.prod.prodPreAnnouncement);
-// app.get("/config/prod/announce_meta/Android/announcement.meta.json", config.prod.prodAnnouncement);
-// app.get("/config/prod/official/Android/version", config.prod.prodAndroidVersion);
-// app.get("/config/prod/official/network_config", config.prod.prodNetworkConfig);
-// app.get("/config/prod/official/refresh_config", config.prod.prodRefreshConfig);
-// app.get("/config/prod/official/remote_config", config.prod.prodRemoteConfig);
-// app.get("/api/game/get_latest_game_info", config.prod.get_latest_game_info);
-// app.get("/api/gate/meta/Android", config.prod.prodGateMeta);
-// app.get("/api/remote_config/101/prod/default/Android/ak_sdk_config", config.prod.ak_sdk_config);
-//
-// app.post("/crisis/getInfo", crisis.crisisGetCrisisInfo);
-// app.post("/crisis/battleStart", crisis.crisisBattleStart);
-// app.post("/crisis/battleFinish", crisis.crisisBattleFinish);
-// app.post("/crisisV2/getInfo", crisis.crisisV2_getInfo);
-// app.post("/crisisV2/confirmMissions", crisis.crisisV2_confirmMissions);
-// app.post("/crisisV2/battleStart", crisis.crisisV2_battleStart);
-// app.post("/crisisV2/battleFinish", crisis.crisisV2_battleFinish);
-// app.post("/crisisV2/getSnapshot", crisis.crisisV2_getSnapshot);
-// app.post("/crisisV2/getGoodList", crisis.crisisV2_getGoodList);
-//
-// app.post("/deepSea/branch", deepsea.deepSeaBranch);
-// app.post("/deepSea/event", deepsea.deepSeaEvent);
-//
+// app.get("/config/prod/announce_meta/Android/preannouncement.meta.json", config.prodPreAnnouncement);
+// app.get("/config/prod/announce_meta/Android/announcement.meta.json", config.prodAnnouncement);
+// app.get("/config/prod/official/Android/version", config.prodAndroidVersion);
+// app.get("/config/prod/official/network_config", config.prodNetworkConfig);
+// app.get("/config/prod/official/refresh_config", config.prodRefreshConfig);
+// app.get("/config/prod/official/remote_config", config.prodRemoteConfig);
+// app.get("/api/game/get_latest_game_info", config.get_latest_game_info);
+// app.get("/api/gate/meta/Android", config.prodGateMeta);
+// app.get("/api/remote_config/101/prod/default/Android/ak_sdk_config", config.ak_sdk_config);
+
+app.post("/crisisV2/getInfo", crisis.crisisV2GetInfo);
+app.post("/crisisV2/confirmMissions", crisis.crisisV2ConfirmMissions);
+app.post("/crisisV2/battleStart", crisis.crisisV2BattleStart);
+app.post("/crisisV2/battleFinish", crisis.crisisV2BattleFinish);
+app.post("/crisisV2/getSnapshot", crisis.crisisV2GetSnapshot);
+app.post("/crisisV2/getGoodList", crisis.crisisV2GetGoodList);
+
+app.post("/deepSea/branch", deepSea.deepSeaBranch);
+app.post("/deepSea/event", deepSea.deepSeaEvent);
+
 // app.post("/mail/getMetaInfoList", mail.mailGetMetaInfoList);
 // app.post("/mail/listMailBox", mail.mailListMailBox);
 // app.post("/mailCollection/getList", mail.mailCollectionGetList);
@@ -223,11 +225,6 @@ app.get("/assetbundle/official/Android/assets/:hash/:name", assets.downloadAsset
 // app.get("/app/v1/config", user.app_v1_config);
 // app.get("/general/v1/server_time", user.general_v1_server_time);
 // app.get("/u8/user/auth/v1/agreement_version", user.agreement_version);
-//
-// app.post("/charRotation/setCurrent", charRotation.setCurrent);
-// app.post("/charRotation/createPreset", charRotation.createPreset);
-// app.post("/charRotation/deletePreset", charRotation.deletePreset);
-// app.post("/charRotation/updatePreset", charRotation.updatePreset);
 
 app.notFound((c) => {
     return c.json({

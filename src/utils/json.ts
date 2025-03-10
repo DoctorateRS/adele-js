@@ -18,7 +18,15 @@ export class JsonUtils {
         }
     }
 
+    async fetchJsonAs<T>(url: string | URL): Promise<T> {
+        return await this.fetchJson(url);
+    }
+
     readJson(path: string | URL) {
+        return this.json.parse(this.fs.readTextFile(path));
+    }
+
+    readJsonAs<T>(path: string | URL): T {
         return this.json.parse(this.fs.readTextFile(path));
     }
 

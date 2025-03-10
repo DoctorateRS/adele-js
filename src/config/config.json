@@ -10,6 +10,12 @@
         "port": 8443,
         "useSu": false
     },
+    "assets": {
+        "autoUpdate": true,
+        "downloadLocally": false,
+        "enableMods": false,
+        "skipModCacheValidation": false
+    },
     "season": {
         "crisis": "cc12",
         "crisisV2": "cc3",

@@ -32,9 +32,8 @@ export class AssetsList {
         this.path = basePath ? basePath : "./assets/assets.json";
 
         try {
-            this.inner = this.json.readJson(this.path);
-        } catch (e) {
-            console.warn(e);
+            this.inner = this.json.readJsonAs<{ [key: string]: string[] }>(this.path);
+        } catch {
             this.inner = {};
         }
     }
