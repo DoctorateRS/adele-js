@@ -1,7 +1,238 @@
 import { Hono } from "hono";
+import { logger } from "hono/logger";
+import { assets } from "./server/mod.ts";
 
 export const app = new Hono();
 
+app.use(logger());
+
+// app.post("/app/getSettings", user.appGetSettings);
+// app.post("/app/getCode", user.appGetCode);
+// app.post("/account/login", account.accountLogin);
+// app.post("/account/syncData", account.accountSyncData);
+// app.post("/account/syncStatus", account.accountSyncStatus);
+// app.post("/account/yostar_auth_request", account.accountYostarAuthRequest);
+// app.post("/account/yostar_auth_submit", account.accountYostarAuthSubmit);
+// app.post("/account/syncPushMessage", account.syncPushMessage);
+
+app.get("/assetbundle/official/Android/assets/:hash/:name", assets.downloadAsset);
+
+// app.post("/background/setBackground", background.setBackground);
+// app.post("/homeTheme/change", background.homeThemeChange);
+// app.post("/building/sync", building.sync);
+// app.post("/building/getRecentVisitors", building.getRecentVisitors);
+// app.post("/building/getInfoShareVisitorsNum", building.getInfoShareVisitorsNum);
+// app.post("/building/assignChar", building.assignChar);
+// app.post("/building/changeDiySolution", building.changeDiySolution);
+// app.post("/building/changeManufactureSolution", building.changeManufactureSolution);
+// app.post("/building/settleManufacture", building.settleManufacture);
+// app.post("/building/workshopSynthesis", building.workshopSynthesis);
+// app.post("/building/upgradeSpecialization", building.upgradeSpecialization);
+// app.post("/building/completeUpgradeSpecialization", building.completeUpgradeSpecialization);
+// app.post("/building/deliveryOrder", building.DeliveryOrder);
+// app.post("/building/deliveryBatchOrder", building.DeliveryBatchOrder);
+// app.post("/building/cleanRoomSlot", building.CleanRoomSlot);
+// app.post("/building/getAssistReport", building.getAssistReport);
+// app.post("/building/setBuildingAssist", building.setBuildingAssist);
+// app.post("/building/degradeRoom", building.changRoomLevel);
+// app.post("/building/upgradeRoom", building.changRoomLevel);
+// app.post("/building/changeStrategy", building.changeStrategy);
+// app.post("/building/addPresetQueue", building.addPresetQueue);
+// app.post("/building/deletePresetQueue", building.deletePresetQueue);
+// app.post("/building/editPresetQueue", building.editPresetQueue);
+// app.post("/building/usePresetQueue", building.usePresetQueue);
+// app.post("/building/editLockQueue", building.editLockQueue);
+// app.post("/building/batchRestChar", building.batchRestChar);
+// app.post("/building/buildRoom", building.buildRoom);
+// app.post("/building/setPrivateDormOwner", building.setPrivateDormOwner);
+//
+// app.post("/campaignV2/battleStart", campaignV2.campaignV2BattleStart);
+// app.post("/campaignV2/battleFinish", campaignV2.campaignV2BattleFinish);
+// app.post("/campaignV2/battleSweep", campaignV2.campaignV2BattleSweep);
+//
+// app.post("/char/changeMarkStar", char.charChangeMarkStar);
+//
+// app.post("/charBuild/addonStage/battleStart", quest.questBattleStart);
+// app.post("/charBuild/addonStage/battleFinish", quest.questBattleFinish);
+// app.post("/charBuild/addonStory/unlock", charBuild.charBuildaddonStoryUnlock);
+// app.post("/charBuild/batchSetCharVoiceLan", charBuild.charBuildBatchSetCharVoiceLan);
+// app.post("/charBuild/setCharVoiceLan", charBuild.charBuildSetCharVoiceLan);
+// app.post("/charBuild/setDefaultSkill", charBuild.charBuildSetDefaultSkill);
+// app.post("/charBuild/changeCharSkin", charBuild.charBuildChangeCharSkin);
+// app.post("/charBuild/setEquipment", charBuild.charBuildSetEquipment);
+// app.post("/charBuild/changeCharTemplate", charBuild.charBuildChangeCharTemplate);
+//
+// app.post("/charm/setSquad", charm.charmSetSquad);
+//
+// app.get("/config/prod/announce_meta/Android/preannouncement.meta.json", config.prod.prodPreAnnouncement);
+// app.get("/config/prod/announce_meta/Android/announcement.meta.json", config.prod.prodAnnouncement);
+// app.get("/config/prod/official/Android/version", config.prod.prodAndroidVersion);
+// app.get("/config/prod/official/network_config", config.prod.prodNetworkConfig);
+// app.get("/config/prod/official/refresh_config", config.prod.prodRefreshConfig);
+// app.get("/config/prod/official/remote_config", config.prod.prodRemoteConfig);
+// app.get("/api/game/get_latest_game_info", config.prod.get_latest_game_info);
+// app.get("/api/gate/meta/Android", config.prod.prodGateMeta);
+// app.get("/api/remote_config/101/prod/default/Android/ak_sdk_config", config.prod.ak_sdk_config);
+//
+// app.post("/crisis/getInfo", crisis.crisisGetCrisisInfo);
+// app.post("/crisis/battleStart", crisis.crisisBattleStart);
+// app.post("/crisis/battleFinish", crisis.crisisBattleFinish);
+// app.post("/crisisV2/getInfo", crisis.crisisV2_getInfo);
+// app.post("/crisisV2/confirmMissions", crisis.crisisV2_confirmMissions);
+// app.post("/crisisV2/battleStart", crisis.crisisV2_battleStart);
+// app.post("/crisisV2/battleFinish", crisis.crisisV2_battleFinish);
+// app.post("/crisisV2/getSnapshot", crisis.crisisV2_getSnapshot);
+// app.post("/crisisV2/getGoodList", crisis.crisisV2_getGoodList);
+//
+// app.post("/deepSea/branch", deepsea.deepSeaBranch);
+// app.post("/deepSea/event", deepsea.deepSeaEvent);
+//
+// app.post("/mail/getMetaInfoList", mail.mailGetMetaInfoList);
+// app.post("/mail/listMailBox", mail.mailListMailBox);
+// app.post("/mailCollection/getList", mail.mailCollectionGetList);
+// app.post("/mail/receiveMail", mail.mailReceiveMail);
+// app.post("/mail/receiveAllMail", mail.mailReceiveAllMail);
+// app.post("/mail/removeAllReceivedMail", mail.mailRemoveAllReceivedMail);
+//
+// app.post("/online/v1/ping", online.onlineV1Ping);
+// app.post("/online/v1/loginout", online.onlineV1LoginOut);
+// app.post("/user/online/v1/loginout", online.onlineV1LoginOut);
+//
+// app.post("/tower/createGame", tower.towerCreateGame);
+// app.post("/tower/initGodCard", tower.towerInitGodCard);
+// app.post("/tower/initGame", tower.towerInitGame);
+// app.post("/tower/initCard", tower.towerInitCard);
+// app.post("/tower/battleStart", tower.towerBattleStart);
+// app.post("/tower/battleFinish", tower.towerBattleFinish);
+// app.post("/tower/recruit", tower.towerRecruit);
+// app.post("/tower/chooseSubGodCard", tower.towerChooseSubGodCard);
+// app.post("/tower/settleGame", tower.towerSettleGame);
+//
+// app.post("/pay/getUnconfirmedOrderIdList", pay.GetUnconfirmedOrderIdList);
+// app.post("/u8/pay/getAllProductList", pay.getAllProductList);
+// app.post("/pay/createOrder", pay.getcreateOrder);
+// app.post("/pay/v1/query_show_app_product", pay.queryshowappproduct);
+// app.get("/user/pay/v1/query_payment_config", pay.querypaymentconfig);
+// app.post("/user/pay/order/v1/create/app_product/alipay", pay.alipay);
+// app.post("/user/pay/order/v1/create/app_product/wechat", pay.wechat);
+// app.post("/pay/order/v1/check", pay.check);
+// app.get("/pay/order/v1/state", pay.state);
+//
+// app.post("/quest/battleStart", quest.questBattleStart);
+// app.post("/quest/battleFinish", quest.questBattleFinish);
+// app.post("/quest/saveBattleReplay", quest.questSaveBattleReplay);
+// app.post("/quest/getBattleReplay", quest.questGetBattleReplay);
+// app.post("/quest/changeSquadName", quest.questChangeSquadName);
+// app.post("/quest/squadFormation", quest.questSquadFormation);
+// app.post("/quest/getAssistList", quest.questGetAssistList);
+// app.post("/quest/battleContinue", quest.questBattleContinue);
+// app.post("/storyreview/markStoryAcceKnown", quest.markStoryAcceKnown);
+// app.post("/storyreview/readStory", quest.readStory);
+// app.post("/act25side/battleStart", quest.questBattleStart);
+// app.post("/act25side/battleFinish", quest.questBattleFinish);
+// app.post("/car/confirmBattleCar", quest.confirmBattleCar);
+// app.post("/templateTrap/setTrapSquad", quest.setTrapSquad);
+// app.post("/activity/act24side/battleStart", quest.questBattleStart);
+// app.post("/activity/act24side/battleFinish", quest.questBattleFinish);
+// app.post("/activity/act24side/setTool", quest.setTool);
+// app.post("/activity/bossRush/battleStart", quest.questBattleStart);
+// app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
+// app.post("/activity/bossRush/relicSelect", quest.relicSelect);
+// app.post("/retro/typeAct20side/competitionStart", quest.typeAct20side_competitionStart);
+// app.post("/retro/typeAct20side/competitionFinish", quest.typeAct20side_competitionFinish);
+//
+// app.post("/rlv2/giveUpGame", rlv2.rlv2GiveUpGame);
+// app.post("/rlv2/createGame", rlv2.rlv2CreateGame);
+// app.post("/rlv2/chooseInitialRelic", rlv2.rlv2ChooseInitialRelic);
+// app.post("/rlv2/selectChoice", rlv2.rlv2SelectChoice);
+// app.post("/rlv2/chooseInitialRecruitSet", rlv2.rlv2ChooseInitialRecruitSet);
+// app.post("/rlv2/activeRecruitTicket", rlv2.rlv2ActiveRecruitTicket);
+// app.post("/rlv2/recruitChar", rlv2.rlv2RecruitChar);
+// app.post("/rlv2/closeRecruitTicket", rlv2.rlv2CloseRecruitTicket);
+// app.post("/rlv2/finishEvent", rlv2.rlv2FinishEvent);
+// app.post("/rlv2/moveAndBattleStart", rlv2.rlv2MoveAndBattleStart);
+// app.post("/rlv2/battleFinish", rlv2.rlv2BattleFinish);
+// app.post("/rlv2/finishBattleReward", rlv2.rlv2FinishBattleReward);
+// app.post("/rlv2/moveTo", rlv2.rlv2MoveTo);
+// app.post("/rlv2/buyGoods", rlv2.rlv2BuyGoods);
+// app.post("/rlv2/leaveShop", rlv2.rlv2LeaveShop);
+// app.post("/rlv2/chooseBattleReward", rlv2.rlv2ChooseBattleReward);
+// app.post("/rlv2/shopAction", rlv2.rlv2shopAction);
+//
+// app.post("/shop/getGoodPurchaseState", shop.getGoodPurchaseState);
+// app.post("/shop/get<string:shop_type>GoodList", shop.getShopGoodList);
+// app.post("/shop/buySkinGood", shop.buySkinGood);
+// app.post("/shop/buyLowGood", shop.buyLowGood);
+// app.post("/shop/buyHighGood", shop.buyHighGood);
+// app.post("/shop/buyExtraGood", shop.buyExtraGood);
+// app.post("/shop/buyClassicGood", shop.buyClassicGood);
+// app.post("/shop/buyFurniGood", shop.buyFurniGood);
+// app.post("/shop/buyFurniGroup", shop.buyFurniGroup);
+//
+// app.post("/templateShop/getGoodList", templateShop.getGoodList);
+// app.post("/templateShop/BuyGood", templateShop.buyGood);
+//
+// app.post("/story/finishStory", story.storyFinishStory);
+// app.post("/quest/finishStoryStage", story.storyFinishStory);
+//
+// app.post("/user/bindBirthday", user.bindBirthday);
+// app.post("/user/auth", user.Auth);
+// app.get("/user/agreement", user.Agreement);
+// app.post("/user/checkIn", user.CheckIn);
+// app.post("/user/changeSecretary", user.ChangeSecretary);
+// app.post("/user/login", user.Login);
+// app.post("/user/changeAvatar", user.ChangeAvatar);
+// app.post("/user/oauth2/v1/grant", user.OAuth2V1Grant);
+// app.post("/user/info/v1/need_cloud_auth", user.V1NeedCloudAuth);
+// app.post("/user/yostar_createlogin", user.YostarCreatelogin);
+// app.post("/u8/user/v1/getToken", user.V1getToken);
+// app.post("/user/changeResume", user.changeResume);
+// app.post("/businessCard/changeNameCardComponent", user.businessCard_changeNameCardComponent);
+// app.post("/businessCard/changeNameCardSkin", user.businessCard_changeNameCardSkin);
+// app.post("/businessCard/getOtherPlayerNameCard", user.getOtherPlayerNameCard);
+// app.post("/businessCard/editNameCard", user.editNameCard);
+//
+// app.post("/sandboxPerm/sandboxV2/createGame", sandbox.createGame);
+// app.post("/sandboxPerm/sandboxV2/battleStart", sandbox.battleStart);
+// app.post("/sandboxPerm/sandboxV2/battleFinish", sandbox.battleFinish);
+// app.post("/sandboxPerm/sandboxV2/settleGame", sandbox.settleGame);
+// app.post("/sandboxPerm/sandboxV2/eatFood", sandbox.eatFood);
+// app.post("/sandboxPerm/sandboxV2/setSquad", sandbox.setSquad);
+// app.post("/sandboxPerm/sandboxV2/homeBuildSave", sandbox.homeBuildSave);
+// app.post("/sandboxPerm/sandboxV2/exploreMode", sandbox.exploreMode);
+// app.post("/sandboxPerm/sandboxV2/eventChoice", sandbox.eventChoice);
+// app.post("/sandboxPerm/sandboxV2/monthBattleStart", sandbox.monthBattleStart);
+// app.post("/sandboxPerm/sandboxV2/monthBattleFinish", sandbox.monthBattleFinish);
+//
+// app.post("/gacha/normalGacha", gacha.normalGacha);
+// app.post("/gacha/boostNormalGacha", gacha.boostNormalGacha);
+// app.post("/gacha/finishNormalGacha", gacha.finishNormalGacha);
+// app.post("/gacha/syncNormalGacha", gacha.syncNormalGacha);
+// app.post("/gacha/getPoolDetail", gacha.getPoolDetail);
+// app.post("/gacha/advancedGacha", gacha.advancedGacha);
+// app.post("/gacha/tenAdvancedGacha", gacha.tenAdvancedGacha);
+// app.post("/gacha/choosePoolUp", gacha.choosePoolUp);
+// app.get("/gacha", gacha.gacha);
+// app.get("/api/gacha/cate", gacha.cate);
+// app.get("/api/is/rogue_1/bulletinVersion", gacha.bulletinVersion);
+// app.get("/api/gacha/history", gacha.history);
+//
+// app.post("/user/auth/v1/token_by_phone_password", user.auth_v1_token_by_phone_password);
+// app.get("/user/info/v1/basic", user.info_v1_basic);
+// app.post("/user/oauth2/v2/grant", user.oauth2_v2_grant);
+// app.get("/app/v1/config", user.app_v1_config);
+// app.get("/general/v1/server_time", user.general_v1_server_time);
+// app.get("/u8/user/auth/v1/agreement_version", user.agreement_version);
+//
+// app.post("/charRotation/setCurrent", charRotation.setCurrent);
+// app.post("/charRotation/createPreset", charRotation.createPreset);
+// app.post("/charRotation/deletePreset", charRotation.deletePreset);
+// app.post("/charRotation/updatePreset", charRotation.updatePreset);
+
 app.notFound((c) => {
-    return c.json({});
+    return c.json({
+        playerDataDelta: {
+            modified: {},
+        },
+    });
 });

@@ -1,0 +1,51 @@
+{
+    "server": {
+        "adaptive": true,
+        "enableServer": true,
+        "gadget": false,
+        "host": "127.0.0.1",
+        "maintenanceMsg": "Server is currently under maintenance!",
+        "mode": "cn",
+        "noProxy": false,
+        "port": 8443,
+        "useSu": false
+    },
+    "season": {
+        "crisis": "cc12",
+        "crisisV2": "cc3",
+        "tower": "tower_season_5"
+    },
+    "battleReplay": {
+        "anonymous": true
+    },
+    "char": {
+        "customUnitInfo": {},
+        "duplicateUnits": [],
+        "evolvePhase": -1,
+        "favorPoint": 25570,
+        "level": -1,
+        "mainSkillLvl": 7,
+        "potentialRank": 5,
+        "skillsSpecializeLevel": 3
+    },
+    "gacha": {
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 1.0
+    },
+    "user": {
+        "activityMinStartTs": 1712203200,
+        "activityMaxStartTs": 1715284799,
+        "background": "bg_sui_1",
+        "fakeTime": -1,
+        "restorePreviousStates": {
+            "is": false,
+            "squadsAndFavs": false,
+            "ui": false
+        },
+        "secretary": "char_171_bldsk",
+        "secretarySkinId": "char_171_bldsk@witch#1",
+        "theme": "tm_sui_1"
+    }
+}

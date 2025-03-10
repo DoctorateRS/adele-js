@@ -10,7 +10,7 @@
         "compile": "deno compile --target x86_64-pc-windows-msvc -o ./dist/adele.exe src/main.ts"
     },
     "fmt": {
-        "lineWidth": 144,
+        "lineWidth": 196,
         "indentWidth": 4
     },
     "compilerOptions": {
