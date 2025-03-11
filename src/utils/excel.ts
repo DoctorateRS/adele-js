@@ -20,6 +20,10 @@ export class ExcelReader {
         return this.internal("battle_equip_table.json");
     }
 
+    buildingTable() {
+        return this.internal("building_data.json");
+    }
+
     campaignTable() {
         return this.internal("campaign_table.json");
     }

@@ -1,5 +1,6 @@
 export * as account from "./account.ts";
 export * as assets from "./assets.ts";
+export * as building from "./building.ts";
 export * as campaignV2 from "./campaignV2.ts";
 export * as char from "./char.ts";
 export * as charBuild from "./charBuild.ts";
