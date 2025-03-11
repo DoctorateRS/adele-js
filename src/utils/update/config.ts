@@ -3,7 +3,10 @@ import json from "../json.ts";
 import { NetworkConfig, NetworkConfigContent, VersionConfig } from "./types.ts";
 
 export async function updateConfig(): Promise<boolean> {
+    console.log("Getting new Version config...");
     const newVerCfg = await json.fetchJsonAs<VersionConfig>("https://ak-conf.hypergryph.com/config/prod/official/Android/version");
+
+    console.log("Getting new Network config...");
     const newNetCfg = await json.fetchJsonAs<NetworkConfig>("https://ak-conf.hypergryph.com/config/prod/official/network_config");
     const newNetCfgCont: NetworkConfigContent = JSON.parse(newNetCfg.content);
 

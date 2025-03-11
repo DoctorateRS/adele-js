@@ -1,6 +1,8 @@
 export * as assets from "./assets.ts";
 export * as campaignV2 from "./campaignV2.ts";
+export * as char from "./char.ts";
 export * as charBuild from "./charBuild.ts";
+export * as charm from "./charm.ts";
 export * as charRotation from "./charRotation.ts";
 export * as config from "./config.ts";
 export * as crisis from "./crisis.ts";

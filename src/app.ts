@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { assets, campaignV2, charBuild, charRotation, config, crisis, deepSea, online, quest } from "./server/mod.ts";
+import { assets, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest } from "./server/mod.ts";
 
 export const app = new Hono();
 
@@ -51,7 +51,7 @@ app.post("/campaignV2/battleStart", campaignV2.campaignV2BattleStart);
 app.post("/campaignV2/battleFinish", campaignV2.campaignV2BattleFinish);
 app.post("/campaignV2/battleSweep", campaignV2.campaignV2BattleSweep);
 
-// app.post("/char/changeMarkStar", char.charChangeMarkStar);
+app.post("/char/changeMarkStar", char.charChangeMarkStar);
 
 app.post("/charBuild/addonStage/battleStart", quest.questBattleStart);
 app.post("/charBuild/addonStage/battleFinish", quest.questBattleFinish);
@@ -68,7 +68,7 @@ app.post("/charRotation/createPreset", charRotation.createPreset);
 app.post("/charRotation/deletePreset", charRotation.deletePreset);
 app.post("/charRotation/updatePreset", charRotation.updatePreset);
 
-// app.post("/charm/setSquad", charm.charmSetSquad);
+app.post("/charm/setSquad", charm.charmSetSquad);
 
 app.get("/config/prod/announce_meta/Android/preannouncement.meta.json", config.prodPreAnnouncement);
 app.get("/config/prod/announce_meta/Android/announcement.meta.json", config.prodAnnouncement);
