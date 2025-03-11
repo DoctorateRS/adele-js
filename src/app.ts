@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { assets, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest } from "./server/mod.ts";
+import { account, assets, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest } from "./server/mod.ts";
 
 export const app = new Hono();
 
@@ -9,12 +9,12 @@ app.use(logger());
 
 // app.post("/app/getSettings", user.appGetSettings);
 // app.post("/app/getCode", user.appGetCode);
-// app.post("/account/login", account.accountLogin);
-// app.post("/account/syncData", account.accountSyncData);
-// app.post("/account/syncStatus", account.accountSyncStatus);
-// app.post("/account/yostar_auth_request", account.accountYostarAuthRequest);
-// app.post("/account/yostar_auth_submit", account.accountYostarAuthSubmit);
-// app.post("/account/syncPushMessage", account.syncPushMessage);
+app.post("/account/login", account.accountLogin);
+app.post("/account/syncData", account.accountSyncData);
+app.post("/account/syncStatus", account.accountSyncStatus);
+app.post("/account/yostar_auth_request", account.accountYostarAuthRequest);
+app.post("/account/yostar_auth_submit", account.accountYostarAuthSubmit);
+app.post("/account/syncPushMessage", account.accountSyncPushMsg);
 
 app.get("/assetbundle/official/Android/assets/:hash/:name", assets.downloadAsset);
 

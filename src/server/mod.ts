@@ -1,3 +1,4 @@
+export * as account from "./account.ts";
 export * as assets from "./assets.ts";
 export * as campaignV2 from "./campaignV2.ts";
 export * as char from "./char.ts";

@@ -9,7 +9,7 @@ export class CacheManager {
         this.basePath = basePath ? basePath : "./cache/";
     }
 
-    writeCache(obj: object, cacheType: "version" | "network") {
+    writeCache(obj: object, cacheType: "version" | "network" | "time") {
         switch (cacheType) {
             case "version":
                 this.json.writeJson(obj, `${this.basePath}version.json`);
@@ -17,7 +17,14 @@ export class CacheManager {
             case "network":
                 this.json.writeJson(obj, `${this.basePath}network.json`);
                 break;
+            case "time":
+                this.json.writeJson(obj, `${this.basePath}time.json`);
+                break;
         }
+    }
+
+    readTimeCache() {
+        return this.json.readJsonAs<{ time: number }>(`${this.basePath}time.json`);
     }
 
     readVersionCache() {

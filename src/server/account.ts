@@ -49,6 +49,13 @@ export function accountSyncStatus(c: Context) {
     });
 }
 
+export function accountSyncPushMsg(c: Context) {
+    return c.json({
+        code: 200,
+        msg: "OK",
+    });
+}
+
 export function accountSyncData(c: Context) {
     class Skill {
         skillId: string;
@@ -365,8 +372,12 @@ export function accountSyncData(c: Context) {
         addonList[charId] = charStoryList;
     }
 
-    for (const stageId of Object.keys(addonTable.handboolStageData)) {
-        addonList[stageId].stage[addonTable.handboolStageData[stageId].stageId] = {
+    for (const stageId of Object.keys(addonTable.handbookStageData)) {
+        if (!Object.hasOwn(addonList[stageId], "stage")) {
+            addonList[stageId].stage = {};
+        }
+
+        addonList[stageId].stage[addonTable.handbookStageData[stageId].stageId] = {
             startTimes: 0,
             completeTimes: 1,
             state: 3,
