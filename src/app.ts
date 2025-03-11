@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import { assets, charRotation, crisis, deepSea } from "./server/mod.ts";
+import { assets, charRotation, config, crisis, deepSea, online } from "./server/mod.ts";
 
 export const app = new Hono();
 
@@ -69,15 +69,15 @@ app.post("/charRotation/updatePreset", charRotation.updatePreset);
 
 // app.post("/charm/setSquad", charm.charmSetSquad);
 //
-// app.get("/config/prod/announce_meta/Android/preannouncement.meta.json", config.prodPreAnnouncement);
-// app.get("/config/prod/announce_meta/Android/announcement.meta.json", config.prodAnnouncement);
-// app.get("/config/prod/official/Android/version", config.prodAndroidVersion);
-// app.get("/config/prod/official/network_config", config.prodNetworkConfig);
-// app.get("/config/prod/official/refresh_config", config.prodRefreshConfig);
-// app.get("/config/prod/official/remote_config", config.prodRemoteConfig);
-// app.get("/api/game/get_latest_game_info", config.get_latest_game_info);
-// app.get("/api/gate/meta/Android", config.prodGateMeta);
-// app.get("/api/remote_config/101/prod/default/Android/ak_sdk_config", config.ak_sdk_config);
+app.get("/config/prod/announce_meta/Android/preannouncement.meta.json", config.prodPreAnnouncement);
+app.get("/config/prod/announce_meta/Android/announcement.meta.json", config.prodAnnouncement);
+app.get("/config/prod/official/Android/version", config.prodAndroidVersion);
+app.get("/config/prod/official/network_config", config.prodNetworkConfig);
+app.get("/config/prod/official/refresh_config", config.prodRefreshVersion);
+app.get("/config/prod/official/remote_config", config.prodRemoteConfig);
+app.get("/api/game/get_latest_game_info", config.getLatestGameInfo);
+app.get("/api/gate/meta/Android", config.prodGateMeta);
+app.get("/api/remote_config/101/prod/default/Android/ak_sdk_config", config.akSdkConfig);
 
 app.post("/crisisV2/getInfo", crisis.crisisV2GetInfo);
 app.post("/crisisV2/confirmMissions", crisis.crisisV2ConfirmMissions);
@@ -95,11 +95,11 @@ app.post("/deepSea/event", deepSea.deepSeaEvent);
 // app.post("/mail/receiveMail", mail.mailReceiveMail);
 // app.post("/mail/receiveAllMail", mail.mailReceiveAllMail);
 // app.post("/mail/removeAllReceivedMail", mail.mailRemoveAllReceivedMail);
-//
-// app.post("/online/v1/ping", online.onlineV1Ping);
-// app.post("/online/v1/loginout", online.onlineV1LoginOut);
-// app.post("/user/online/v1/loginout", online.onlineV1LoginOut);
-//
+
+app.post("/online/v1/ping", online.onlineV1Ping);
+app.post("/online/v1/loginout", online.onlineV1LoginOut);
+app.post("/user/online/v1/loginout", online.onlineV1LoginOut);
+
 // app.post("/tower/createGame", tower.towerCreateGame);
 // app.post("/tower/initGodCard", tower.towerInitGodCard);
 // app.post("/tower/initGame", tower.towerInitGame);
