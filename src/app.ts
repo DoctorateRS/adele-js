@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { account, assets, building, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest } from "./server/mod.ts";
+import { account, assets, building, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest, social } from "./server/mod.ts";
 
 export const app = new Hono();
 
@@ -220,6 +220,17 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.get("/api/gacha/cate", gacha.cate);
 // app.get("/api/is/rogue_1/bulletinVersion", gacha.bulletinVersion);
 // app.get("/api/gacha/history", gacha.history);
+
+app.post("/social/setAssistCharList", social.setAssistCharList);
+app.post("/social/getSortListInfo", social.getSortListInfo);
+app.post("/social/getFriendList", social.getFriendList);
+app.post("/social/getFriendRequestList", social.getFriendRequestList);
+app.post("/social/processFriendRequest", social.processFriendRequest);
+app.post("/social/sendFriendRequest", social.sendFriendRequest);
+app.post("/social/setFriendAlias", social.setFriendAlias);
+app.post("/social/deleteFriend", social.deleteFriend);
+app.post("/social/searchPlayer", social.searchPlayer);
+app.post("/social/setCardShowMedal", social.setCardShowMedal);
 
 // app.post("/user/auth/v1/token_by_phone_password", user.auth_v1_token_by_phone_password);
 // app.get("/user/info/v1/basic", user.info_v1_basic);
