@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import { assets, charBuild, charRotation, config, crisis, deepSea, online, quest } from "./server/mod.ts";
+
+import { assets, campaignV2, charBuild, charRotation, config, crisis, deepSea, online, quest } from "./server/mod.ts";
 
 export const app = new Hono();
 
@@ -45,11 +46,11 @@ app.get("/assetbundle/official/Android/assets/:hash/:name", assets.downloadAsset
 // app.post("/building/batchRestChar", building.batchRestChar);
 // app.post("/building/buildRoom", building.buildRoom);
 // app.post("/building/setPrivateDormOwner", building.setPrivateDormOwner);
-//
-// app.post("/campaignV2/battleStart", campaignV2.campaignV2BattleStart);
-// app.post("/campaignV2/battleFinish", campaignV2.campaignV2BattleFinish);
-// app.post("/campaignV2/battleSweep", campaignV2.campaignV2BattleSweep);
-//
+
+app.post("/campaignV2/battleStart", campaignV2.campaignV2BattleStart);
+app.post("/campaignV2/battleFinish", campaignV2.campaignV2BattleFinish);
+app.post("/campaignV2/battleSweep", campaignV2.campaignV2BattleSweep);
+
 // app.post("/char/changeMarkStar", char.charChangeMarkStar);
 
 app.post("/charBuild/addonStage/battleStart", quest.questBattleStart);
@@ -109,7 +110,7 @@ app.post("/user/online/v1/loginout", online.onlineV1LoginOut);
 // app.post("/tower/recruit", tower.towerRecruit);
 // app.post("/tower/chooseSubGodCard", tower.towerChooseSubGodCard);
 // app.post("/tower/settleGame", tower.towerSettleGame);
-//
+
 // app.post("/pay/getUnconfirmedOrderIdList", pay.GetUnconfirmedOrderIdList);
 // app.post("/u8/pay/getAllProductList", pay.getAllProductList);
 // app.post("/pay/createOrder", pay.getcreateOrder);
@@ -142,7 +143,7 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/activity/bossRush/relicSelect", quest.relicSelect);
 // app.post("/retro/typeAct20side/competitionStart", quest.typeAct20side_competitionStart);
 // app.post("/retro/typeAct20side/competitionFinish", quest.typeAct20side_competitionFinish);
-//
+
 // app.post("/rlv2/giveUpGame", rlv2.rlv2GiveUpGame);
 // app.post("/rlv2/createGame", rlv2.rlv2CreateGame);
 // app.post("/rlv2/chooseInitialRelic", rlv2.rlv2ChooseInitialRelic);
@@ -160,7 +161,7 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/rlv2/leaveShop", rlv2.rlv2LeaveShop);
 // app.post("/rlv2/chooseBattleReward", rlv2.rlv2ChooseBattleReward);
 // app.post("/rlv2/shopAction", rlv2.rlv2shopAction);
-//
+
 // app.post("/shop/getGoodPurchaseState", shop.getGoodPurchaseState);
 // app.post("/shop/get<string:shop_type>GoodList", shop.getShopGoodList);
 // app.post("/shop/buySkinGood", shop.buySkinGood);
@@ -170,13 +171,13 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/shop/buyClassicGood", shop.buyClassicGood);
 // app.post("/shop/buyFurniGood", shop.buyFurniGood);
 // app.post("/shop/buyFurniGroup", shop.buyFurniGroup);
-//
+
 // app.post("/templateShop/getGoodList", templateShop.getGoodList);
 // app.post("/templateShop/BuyGood", templateShop.buyGood);
-//
+
 // app.post("/story/finishStory", story.storyFinishStory);
 // app.post("/quest/finishStoryStage", story.storyFinishStory);
-//
+
 // app.post("/user/bindBirthday", user.bindBirthday);
 // app.post("/user/auth", user.Auth);
 // app.get("/user/agreement", user.Agreement);
@@ -193,7 +194,7 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/businessCard/changeNameCardSkin", user.businessCard_changeNameCardSkin);
 // app.post("/businessCard/getOtherPlayerNameCard", user.getOtherPlayerNameCard);
 // app.post("/businessCard/editNameCard", user.editNameCard);
-//
+
 // app.post("/sandboxPerm/sandboxV2/createGame", sandbox.createGame);
 // app.post("/sandboxPerm/sandboxV2/battleStart", sandbox.battleStart);
 // app.post("/sandboxPerm/sandboxV2/battleFinish", sandbox.battleFinish);
@@ -205,7 +206,7 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/sandboxPerm/sandboxV2/eventChoice", sandbox.eventChoice);
 // app.post("/sandboxPerm/sandboxV2/monthBattleStart", sandbox.monthBattleStart);
 // app.post("/sandboxPerm/sandboxV2/monthBattleFinish", sandbox.monthBattleFinish);
-//
+
 // app.post("/gacha/normalGacha", gacha.normalGacha);
 // app.post("/gacha/boostNormalGacha", gacha.boostNormalGacha);
 // app.post("/gacha/finishNormalGacha", gacha.finishNormalGacha);
@@ -218,7 +219,7 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.get("/api/gacha/cate", gacha.cate);
 // app.get("/api/is/rogue_1/bulletinVersion", gacha.bulletinVersion);
 // app.get("/api/gacha/history", gacha.history);
-//
+
 // app.post("/user/auth/v1/token_by_phone_password", user.auth_v1_token_by_phone_password);
 // app.get("/user/info/v1/basic", user.info_v1_basic);
 // app.post("/user/oauth2/v2/grant", user.oauth2_v2_grant);

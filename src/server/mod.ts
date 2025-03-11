@@ -1,4 +1,5 @@
 export * as assets from "./assets.ts";
+export * as campaignV2 from "./campaignV2.ts";
 export * as charBuild from "./charBuild.ts";
 export * as charRotation from "./charRotation.ts";
 export * as config from "./config.ts";
