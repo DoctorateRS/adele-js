@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import { assets, charRotation, config, crisis, deepSea, online } from "./server/mod.ts";
+import { assets, charBuild, charRotation, config, crisis, deepSea, online, quest } from "./server/mod.ts";
 
 export const app = new Hono();
 
@@ -51,16 +51,16 @@ app.get("/assetbundle/official/Android/assets/:hash/:name", assets.downloadAsset
 // app.post("/campaignV2/battleSweep", campaignV2.campaignV2BattleSweep);
 //
 // app.post("/char/changeMarkStar", char.charChangeMarkStar);
-//
-// app.post("/charBuild/addonStage/battleStart", quest.questBattleStart);
-// app.post("/charBuild/addonStage/battleFinish", quest.questBattleFinish);
-// app.post("/charBuild/addonStory/unlock", charBuild.charBuildaddonStoryUnlock);
-// app.post("/charBuild/batchSetCharVoiceLan", charBuild.charBuildBatchSetCharVoiceLan);
-// app.post("/charBuild/setCharVoiceLan", charBuild.charBuildSetCharVoiceLan);
-// app.post("/charBuild/setDefaultSkill", charBuild.charBuildSetDefaultSkill);
-// app.post("/charBuild/changeCharSkin", charBuild.charBuildChangeCharSkin);
-// app.post("/charBuild/setEquipment", charBuild.charBuildSetEquipment);
-// app.post("/charBuild/changeCharTemplate", charBuild.charBuildChangeCharTemplate);
+
+app.post("/charBuild/addonStage/battleStart", quest.questBattleStart);
+app.post("/charBuild/addonStage/battleFinish", quest.questBattleFinish);
+app.post("/charBuild/addonStory/unlock", charBuild.charBuildaddonStoryUnlock);
+app.post("/charBuild/batchSetCharVoiceLan", charBuild.charBuildBatchSetCharVoiceLan);
+app.post("/charBuild/setCharVoiceLan", charBuild.charBuildSetCharVoiceLan);
+app.post("/charBuild/setDefaultSkill", charBuild.charBuildSetDefaultSkill);
+app.post("/charBuild/changeCharSkin", charBuild.charBuildChangeCharSkin);
+app.post("/charBuild/setEquipment", charBuild.charBuildSetEquipment);
+app.post("/charBuild/changeCharTemplate", charBuild.charBuildChangeCharTemplate);
 
 app.post("/charRotation/setCurrent", charRotation.setCurrent);
 app.post("/charRotation/createPreset", charRotation.createPreset);
@@ -68,7 +68,7 @@ app.post("/charRotation/deletePreset", charRotation.deletePreset);
 app.post("/charRotation/updatePreset", charRotation.updatePreset);
 
 // app.post("/charm/setSquad", charm.charmSetSquad);
-//
+
 app.get("/config/prod/announce_meta/Android/preannouncement.meta.json", config.prodPreAnnouncement);
 app.get("/config/prod/announce_meta/Android/announcement.meta.json", config.prodAnnouncement);
 app.get("/config/prod/official/Android/version", config.prodAndroidVersion);
@@ -119,9 +119,9 @@ app.post("/user/online/v1/loginout", online.onlineV1LoginOut);
 // app.post("/user/pay/order/v1/create/app_product/wechat", pay.wechat);
 // app.post("/pay/order/v1/check", pay.check);
 // app.get("/pay/order/v1/state", pay.state);
-//
-// app.post("/quest/battleStart", quest.questBattleStart);
-// app.post("/quest/battleFinish", quest.questBattleFinish);
+
+app.post("/quest/battleStart", quest.questBattleStart);
+app.post("/quest/battleFinish", quest.questBattleFinish);
 // app.post("/quest/saveBattleReplay", quest.questSaveBattleReplay);
 // app.post("/quest/getBattleReplay", quest.questGetBattleReplay);
 // app.post("/quest/changeSquadName", quest.questChangeSquadName);
@@ -130,15 +130,15 @@ app.post("/user/online/v1/loginout", online.onlineV1LoginOut);
 // app.post("/quest/battleContinue", quest.questBattleContinue);
 // app.post("/storyreview/markStoryAcceKnown", quest.markStoryAcceKnown);
 // app.post("/storyreview/readStory", quest.readStory);
-// app.post("/act25side/battleStart", quest.questBattleStart);
-// app.post("/act25side/battleFinish", quest.questBattleFinish);
+app.post("/act25side/battleStart", quest.questBattleStart);
+app.post("/act25side/battleFinish", quest.questBattleFinish);
 // app.post("/car/confirmBattleCar", quest.confirmBattleCar);
 // app.post("/templateTrap/setTrapSquad", quest.setTrapSquad);
-// app.post("/activity/act24side/battleStart", quest.questBattleStart);
-// app.post("/activity/act24side/battleFinish", quest.questBattleFinish);
+app.post("/activity/act24side/battleStart", quest.questBattleStart);
+app.post("/activity/act24side/battleFinish", quest.questBattleFinish);
 // app.post("/activity/act24side/setTool", quest.setTool);
-// app.post("/activity/bossRush/battleStart", quest.questBattleStart);
-// app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
+app.post("/activity/bossRush/battleStart", quest.questBattleStart);
+app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/activity/bossRush/relicSelect", quest.relicSelect);
 // app.post("/retro/typeAct20side/competitionStart", quest.typeAct20side_competitionStart);
 // app.post("/retro/typeAct20side/competitionFinish", quest.typeAct20side_competitionFinish);
