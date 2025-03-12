@@ -1,14 +1,14 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { account, assets, building, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest, social, user } from "./server/mod.ts";
+import { account, assets, background, building, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest, social, user } from "./server/mod.ts";
 
 export const app = new Hono();
 
 app.use(logger());
 
-// app.post("/app/getSettings", user.appGetSettings);
-// app.post("/app/getCode", user.appGetCode);
+app.post("/app/getSettings", user.appGetSettings);
+app.post("/app/getCode", user.appGetCode);
 app.post("/account/login", account.accountLogin);
 app.post("/account/syncData", account.accountSyncData);
 app.post("/account/syncStatus", account.accountSyncStatus);
@@ -18,8 +18,8 @@ app.post("/account/syncPushMessage", account.accountSyncPushMsg);
 
 app.get("/assetbundle/official/Android/assets/:hash/:name", assets.downloadAsset);
 
-// app.post("/background/setBackground", background.setBackground);
-// app.post("/homeTheme/change", background.homeThemeChange);
+app.post("/background/setBackground", background.setBackground);
+app.post("/homeTheme/change", background.setTheme);
 
 app.post("/building/sync", building.buildingSync);
 app.post("/building/getRecentVisitors", building.buildingGetRecentVisitor);

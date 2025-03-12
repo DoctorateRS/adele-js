@@ -3,6 +3,8 @@ import config from "./config.json" with { type: "json" };
 export default config;
 export const configPath = "./src/config/config.json";
 
+type AdeleConfiguration = typeof config;
+
 export class ConfigManager {
     json = json;
     path: string;
@@ -12,10 +14,10 @@ export class ConfigManager {
     }
 
     readConfig() {
-        return this.json.readJson(this.path);
+        return this.json.readJsonAs<AdeleConfiguration>(this.path);
     }
 
-    writeConfig(cfg: typeof config) {
+    writeConfig(cfg: AdeleConfiguration) {
         this.json.writeJson(cfg, this.path);
     }
 }
