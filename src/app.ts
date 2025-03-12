@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { account, assets, building, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest, social } from "./server/mod.ts";
+import { account, assets, building, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest, social, user } from "./server/mod.ts";
 
 export const app = new Hono();
 
@@ -180,16 +180,16 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/quest/finishStoryStage", story.storyFinishStory);
 
 // app.post("/user/bindBirthday", user.bindBirthday);
-// app.post("/user/auth", user.Auth);
-// app.get("/user/agreement", user.Agreement);
-// app.post("/user/checkIn", user.CheckIn);
-// app.post("/user/changeSecretary", user.ChangeSecretary);
-// app.post("/user/login", user.Login);
-// app.post("/user/changeAvatar", user.ChangeAvatar);
-// app.post("/user/oauth2/v1/grant", user.OAuth2V1Grant);
-// app.post("/user/info/v1/need_cloud_auth", user.V1NeedCloudAuth);
-// app.post("/user/yostar_createlogin", user.YostarCreatelogin);
-// app.post("/u8/user/v1/getToken", user.V1getToken);
+app.post("/user/auth", user.auth);
+app.get("/user/agreement", user.agreement);
+app.post("/user/checkIn", user.checkIn);
+app.post("/user/changeSecretary", user.changeSecretary);
+app.post("/user/login", user.login);
+app.post("/user/changeAvatar", user.changeAvatar);
+app.post("/user/oauth2/v1/grant", user.oauthV2Grant);
+app.post("/user/info/v1/need_cloud_auth", user.v1NeedCloudAuth);
+app.post("/user/yostar_createlogin", user.yostarCreateLogin);
+app.post("/u8/user/v1/getToken", user.v1GetToken);
 // app.post("/user/changeResume", user.changeResume);
 // app.post("/businessCard/changeNameCardComponent", user.businessCard_changeNameCardComponent);
 // app.post("/businessCard/changeNameCardSkin", user.businessCard_changeNameCardSkin);
@@ -232,12 +232,12 @@ app.post("/social/deleteFriend", social.deleteFriend);
 app.post("/social/searchPlayer", social.searchPlayer);
 app.post("/social/setCardShowMedal", social.setCardShowMedal);
 
-// app.post("/user/auth/v1/token_by_phone_password", user.auth_v1_token_by_phone_password);
-// app.get("/user/info/v1/basic", user.info_v1_basic);
-// app.post("/user/oauth2/v2/grant", user.oauth2_v2_grant);
-// app.get("/app/v1/config", user.app_v1_config);
-// app.get("/general/v1/server_time", user.general_v1_server_time);
-// app.get("/u8/user/auth/v1/agreement_version", user.agreement_version);
+app.post("/user/auth/v1/token_by_phone_password", user.authV1TokenByPhonePassword);
+app.get("/user/info/v1/basic", user.v1InfoBasic);
+app.post("/user/oauth2/v2/grant", user.oauth2V2Grant);
+app.get("/app/v1/config", user.appV1Config);
+app.get("/general/v1/server_time", user.generalV1ServerTime);
+app.get("/u8/user/auth/v1/agreement_version", user.agreementVersion);
 
 app.notFound((c) => {
     return c.json({
