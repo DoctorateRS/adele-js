@@ -1,9 +1,8 @@
 import { Context } from "hono";
 import user from "../utils/userData.ts";
 import excel from "../utils/excel.ts";
-import { range } from "../utils/numbers.ts";
 
-export function buildingSync(c: Context) {
+export function sync(c: Context) {
     const userData = user.readUserData();
     const buildingTable = excel.buildingTable();
 
@@ -57,19 +56,19 @@ export function buildingSync(c: Context) {
     });
 }
 
-export function buildingGetRecentVisitor(c: Context) {
+export function getRecentVisitor(c: Context) {
     return c.json({
         visitors: [],
     });
 }
 
-export function buildingGetShareVisitorNum(c: Context) {
+export function getShareVisitorNum(c: Context) {
     return c.json({
         number: 0,
     });
 }
 
-export async function buildingAssignChar(c: Context) {
+export async function assignChar(c: Context) {
     interface BuildingAssignCharReq {
         roomSlotId: string;
         charInstIdList: number[];

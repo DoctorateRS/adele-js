@@ -1,7 +1,26 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { account, assets, background, building, campaignV2, char, charBuild, charm, charRotation, config, crisis, deepSea, online, quest, social, user } from "./server/mod.ts";
+import {
+    account,
+    assets,
+    background,
+    building,
+    campaignV2,
+    char,
+    charBuild,
+    charm,
+    charRotation,
+    config,
+    crisis,
+    deepSea,
+    online,
+    quest,
+    social,
+    story,
+    templateShop,
+    user,
+} from "./server/mod.ts";
 
 export const app = new Hono();
 
@@ -21,10 +40,10 @@ app.get("/assetbundle/official/Android/assets/:hash/:name", assets.downloadAsset
 app.post("/background/setBackground", background.setBackground);
 app.post("/homeTheme/change", background.setTheme);
 
-app.post("/building/sync", building.buildingSync);
-app.post("/building/getRecentVisitors", building.buildingGetRecentVisitor);
-app.post("/building/getInfoShareVisitorsNum", building.buildingGetShareVisitorNum);
-app.post("/building/assignChar", building.buildingAssignChar);
+app.post("/building/sync", building.sync);
+app.post("/building/getRecentVisitors", building.getRecentVisitor);
+app.post("/building/getInfoShareVisitorsNum", building.getShareVisitorNum);
+app.post("/building/assignChar", building.assignChar);
 // app.post("/building/changeDiySolution", building.changeDiySolution);
 // app.post("/building/changeManufactureSolution", building.changeManufactureSolution);
 // app.post("/building/settleManufacture", building.settleManufacture);
@@ -173,11 +192,11 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/shop/buyFurniGood", shop.buyFurniGood);
 // app.post("/shop/buyFurniGroup", shop.buyFurniGroup);
 
-// app.post("/templateShop/getGoodList", templateShop.getGoodList);
-// app.post("/templateShop/BuyGood", templateShop.buyGood);
+app.post("/templateShop/getGoodList", templateShop.getGoodList);
+app.post("/templateShop/BuyGood", templateShop.buyGood);
 
-// app.post("/story/finishStory", story.storyFinishStory);
-// app.post("/quest/finishStoryStage", story.storyFinishStory);
+app.post("/story/finishStory", story.storyFinishStory);
+app.post("/quest/finishStoryStage", story.storyFinishStory);
 
 app.post("/user/bindBirthday", user.bindBirthday);
 app.post("/user/auth", user.auth);
