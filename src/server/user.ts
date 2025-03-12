@@ -1,6 +1,8 @@
 import { Context } from "hono";
 import user from "../utils/userData.ts";
 import json from "../utils/json.ts";
+import { getRandomNumber, getRandomUniqueElements } from "../utils/random.ts";
+import { extractCharInstId } from "../utils/mod.ts";
 
 const SkinIdSeperator = new RegExp("[@#]");
 
@@ -246,39 +248,101 @@ export function generalV1ServerTime(c: Context) {
     });
 }
 
-export async function exchangeDiamondShard(c: Context) {
+export async function changeResume(c: Context) {
+    const req = await c.req.json();
+
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                status: {
+                    resume: req.resume,
+                },
+            },
+            deleted: {},
+        },
+    });
+}
+
+export async function getOtherPlayerNameCard(c: Context) {
+    const req = await c.req.json();
+    const userData = user.readUserData();
+
+    const assistList = Object.keys(userData.user.troop.chars);
+    const [op1, op2, op3] = getRandomUniqueElements(assistList, 3).map(parseInt);
+
+    const [op1Inst, op2Inst, op3Inst] = [op1, op2, op3].map((v) => {
+        return userData.user.troop.chars[v.toString()];
+    });
+
+    const nickNumber = getRandomNumber(10000);
+    return c.json({
+        nameCard: {
+            nickName: "ABCDEFG",
+            nickNumber: `${nickNumber}`,
+            uid: req.uid,
+            registerTs: 1700000000,
+            mainStageProgress: null,
+            charCnt: 0,
+            skinCnt: 0,
+            secretary: "char_002_amiya",
+            secretarySkinId: "char_002_amiya#1",
+            resume: "",
+            teamV2: {},
+            level: 200,
+            avatarId: "0",
+            avatar: {
+                type: "ICON",
+                id: "avatar_def_01",
+            },
+            assistCharList: [op1Inst, op2Inst, op3Inst],
+            medalBoard: {
+                type: "EMPTY",
+                custom: null,
+                template: null,
+            },
+            nameCardStyle: {
+                componentOrder: [
+                    "module_sign",
+                    "module_assist",
+                    "module_medal",
+                ],
+                skin: {
+                    selected: "nc_rhodes_default",
+                    state: {},
+                },
+                misc: {
+                    showDetail: true,
+                    showBirthday: false,
+                },
+            },
+        },
+    });
+}
+
+export async function bindBirthday(c: Context) {
     const req = await c.req.json();
 
     const syncData = user.readSyncData();
     const userData = user.readUserData();
 
-    const useCount = req.count;
-    const userAndroidDiamond = syncData.user.status.androidDiamond;
+    const bd = { month: -1, day: -1 };
+    bd.month = req.month;
+    bd.day = req.day;
 
-    if (userAndroidDiamond < useCount) {
-        return c.json({
-            result: 1,
-            errMsg: "剩余源石无法兑换合成玉",
-        });
-    }
+    userData.user.status.birthday = bd;
+    syncData.user.status.birthday = bd;
 
-    syncData.user.status.androidDiamond -= useCount;
-    syncData.user.status.diamondShard += useCount * 180;
-    syncData.user.status.iosDiamond = syncData.user.status.androidDiamond;
-
-    userData.user.status.androidDiamond = syncData.user.status.androidDiamond;
-    userData.user.status.diamondShard = syncData.user.status.diamondShard;
-    userData.user.status.iosDiamond = syncData.user.status.iosDiamond;
-
-    user.writeSyncData(syncData);
     user.writeUserData(userData);
+    user.writeSyncData(syncData);
 
     return c.json({
         playerDataDelta: {
             modified: {
-                androidDiamond: userData.user.status.androidDiamond,
-                iosDiamond: userData.user.status.iosDiamond,
-                diamondShard: userData.user.status.diamondShard,
+                user: {
+                    status: {
+                        birthday: bd,
+                    },
+                },
             },
             deleted: {},
         },

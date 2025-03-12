@@ -1,3 +1,7 @@
+export function sort(a: number, b: number): [number, number] {
+    return (a > b) ? [a, b] : [b, a];
+}
+
 export function max(a: number, b: number) {
     return (a > b) ? a : b;
 }

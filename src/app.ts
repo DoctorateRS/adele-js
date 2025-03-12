@@ -179,7 +179,7 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/story/finishStory", story.storyFinishStory);
 // app.post("/quest/finishStoryStage", story.storyFinishStory);
 
-// app.post("/user/bindBirthday", user.bindBirthday);
+app.post("/user/bindBirthday", user.bindBirthday);
 app.post("/user/auth", user.auth);
 app.get("/user/agreement", user.agreement);
 app.post("/user/checkIn", user.checkIn);
@@ -190,10 +190,10 @@ app.post("/user/oauth2/v1/grant", user.oauthV2Grant);
 app.post("/user/info/v1/need_cloud_auth", user.v1NeedCloudAuth);
 app.post("/user/yostar_createlogin", user.yostarCreateLogin);
 app.post("/u8/user/v1/getToken", user.v1GetToken);
-// app.post("/user/changeResume", user.changeResume);
+app.post("/user/changeResume", user.changeResume);
 // app.post("/businessCard/changeNameCardComponent", user.businessCard_changeNameCardComponent);
 // app.post("/businessCard/changeNameCardSkin", user.businessCard_changeNameCardSkin);
-// app.post("/businessCard/getOtherPlayerNameCard", user.getOtherPlayerNameCard);
+app.post("/businessCard/getOtherPlayerNameCard", user.getOtherPlayerNameCard);
 // app.post("/businessCard/editNameCard", user.editNameCard);
 
 // app.post("/sandboxPerm/sandboxV2/createGame", sandbox.createGame);

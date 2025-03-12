@@ -12,3 +12,8 @@ export const defaultPlayerDataDelta = {
 export function getLastElement<T>(arr: T[]) {
     return arr[arr.length - 1];
 }
+
+export function extractCharInstId(charId: string) {
+    console.log(charId);
+    return parseInt(charId.split("_")[1]);
+}

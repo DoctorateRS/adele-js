@@ -2,7 +2,7 @@ import { Context } from "hono";
 import json from "../utils/json.ts";
 import config from "../config/mod.ts";
 import shop from "../utils/shop.ts";
-import { max, sum, sumArr } from "../utils/numbers.ts";
+import { max, sumArr } from "../utils/numbers.ts";
 
 class CrisisRecord {
     internal: { previousMaxScore: number; previousScore: number[] };
@@ -133,7 +133,6 @@ export function crisisV2BattleFinish(c: Context) {
 
             if (flag) {
                 const bagData = runes.info.mapDetailDataMap[battleData.mapId].bagDataMap[slotPackId];
-
                 scoreCurrent[bagData.dimension] += bagData.rewardScore;
             }
         }
@@ -145,9 +144,7 @@ export function crisisV2BattleFinish(c: Context) {
                 const runeId = runes.info.mapDetailDataMap[battleData.mapId].nodeDataMap.runeId;
 
                 runeIds.push(runeId);
-
                 const runeData = runes.info.mapDetailDataMap[battleData.mapId].runeDataMap[runeId];
-
                 scoreCurrent[runeData.dimension] += runeData.score;
             }
         }
