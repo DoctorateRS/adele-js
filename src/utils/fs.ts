@@ -16,19 +16,21 @@ export class FsUtils {
         return stripped;
     }
 
-    readFile(path: string | URL) {
+    readFile(path: string) {
         return Deno.readFileSync(path);
     }
 
-    readTextFile(path: string | URL) {
+    readTextFile(path: string) {
         return Deno.readTextFileSync(path);
     }
 
-    writeFile(path: string | URL, data: Uint8Array, opts?: Deno.WriteFileOptions) {
+    writeFile(path: string, data: Uint8Array, opts?: Deno.WriteFileOptions) {
+        Deno.createSync(path);
         Deno.writeFileSync(path, data, opts);
     }
 
-    writeTextFile(path: string | URL, data: string, opts?: Deno.WriteFileOptions) {
+    writeTextFile(path: string, data: string, opts?: Deno.WriteFileOptions) {
+        Deno.createSync(path);
         Deno.writeTextFileSync(path, data, opts ? opts : { create: true });
     }
 }
