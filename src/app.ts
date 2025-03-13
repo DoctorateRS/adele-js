@@ -210,10 +210,10 @@ app.post("/user/info/v1/need_cloud_auth", user.v1NeedCloudAuth);
 app.post("/user/yostar_createlogin", user.yostarCreateLogin);
 app.post("/u8/user/v1/getToken", user.v1GetToken);
 app.post("/user/changeResume", user.changeResume);
-// app.post("/businessCard/changeNameCardComponent", user.businessCard_changeNameCardComponent);
-// app.post("/businessCard/changeNameCardSkin", user.businessCard_changeNameCardSkin);
+app.post("/businessCard/changeNameCardComponent", user.changeNamecardComponent);
+app.post("/businessCard/changeNameCardSkin", user.changeNamecardSkin);
 app.post("/businessCard/getOtherPlayerNameCard", user.getOtherPlayerNameCard);
-// app.post("/businessCard/editNameCard", user.editNameCard);
+app.post("/businessCard/editNameCard", user.editNameCard);
 
 // app.post("/sandboxPerm/sandboxV2/createGame", sandbox.createGame);
 // app.post("/sandboxPerm/sandboxV2/battleStart", sandbox.battleStart);

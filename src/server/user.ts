@@ -2,7 +2,7 @@ import { Context } from "hono";
 import user from "../utils/userData.ts";
 import json from "../utils/json.ts";
 import { getRandomNumber, getRandomUniqueElements } from "../utils/random.ts";
-import { extractCharInstId } from "../utils/mod.ts";
+import { defaultPlayerDataDelta, extractCharInstId } from "../utils/mod.ts";
 
 const SkinIdSeperator = new RegExp("[@#]");
 
@@ -347,6 +347,34 @@ export async function bindBirthday(c: Context) {
             deleted: {},
         },
     });
+}
+
+export async function changeNamecardComponent(c: Context) {
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                nameCardStyle: { componentOrder: (await c.req.json()).component },
+            },
+            deleted: {},
+        },
+    });
+}
+
+export async function changeNamecardSkin(c: Context) {
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                nameCardStyle: {
+                    skin: { selected: (await c.req.json()).skinId },
+                },
+            },
+            deleted: {},
+        },
+    });
+}
+
+export function editNameCard(c: Context) {
+    return c.json(defaultPlayerDataDelta);
 }
 
 export function agreementVersion(c: Context) {
