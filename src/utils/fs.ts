@@ -1,17 +1,19 @@
 export class FsUtils {
+    pathSeperator: string;
     encoder = new TextEncoder();
 
-    constructor() {}
+    constructor(pathSeperator?: string) {
+        this.pathSeperator = pathSeperator ? pathSeperator : "/";
+    }
 
-    stripPath(path: string, pathSeperator?: string) {
-        pathSeperator = pathSeperator ? pathSeperator : "/";
+    stripPath(path: string) {
         let [stripped, cnt] = ["", 0];
-        const frags = path.split(pathSeperator);
+        const frags = path.split(this.pathSeperator);
 
         for (const frag of frags) {
             cnt += 1;
             if (cnt !== frags.length) {
-                stripped += `${frag}${pathSeperator}`;
+                stripped += `${frag}${this.pathSeperator}`;
             }
         }
 
