@@ -1,8 +1,20 @@
 export class FsUtils {
-    encoder = new TextEncoder();
-    decoder = new TextDecoder();
-
     constructor() {}
+
+    stripPath(path: string, pathSeperator?: string) {
+        pathSeperator = pathSeperator ? pathSeperator : "/";
+        let [stripped, cnt] = ["", 0];
+        const frags = path.split(pathSeperator);
+
+        for (const frag of frags) {
+            cnt += 1;
+            if (cnt !== frags.length) {
+                stripped += `${frag}${pathSeperator}`;
+            }
+        }
+
+        return stripped;
+    }
 
     readFile(path: string | URL) {
         return Deno.readFileSync(path);

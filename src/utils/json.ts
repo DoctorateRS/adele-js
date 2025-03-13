@@ -1,3 +1,4 @@
+import { Context } from "hono";
 import fs from "./fs.ts";
 
 export class JsonUtils {
@@ -37,3 +38,20 @@ export class JsonUtils {
 
 const json = new JsonUtils();
 export default json;
+
+export class JsonDumper {
+    json = json;
+    basePath: string;
+
+    constructor(basePath?: string) {
+        this.basePath = basePath ? basePath : "./dump";
+    }
+
+    async dumpJson(c: Context) {
+        const obj = await c.req.json();
+        const time = Date.now();
+        const url = c.req.path;
+
+        this.json.writeJson(obj, `${this.basePath}${url}/${time}.json`);
+    }
+}

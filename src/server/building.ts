@@ -128,3 +128,28 @@ export async function assignChar(c: Context) {
         },
     });
 }
+
+export async function changeDiySolution(c: Context) {
+    const { roomSlotId, solution } = await c.req.json();
+    const syncData = user.readSyncData();
+    const userData = user.readUserData();
+
+    syncData.user.building.rooms["DORMITORY"][roomSlotId].diySolution = solution;
+    userData.user.building.rooms["DORMITORY"][roomSlotId].diySolution = solution;
+
+    user.writeUserData(userData);
+    user.writeSyncData(syncData);
+
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                building: userData.user.building,
+                event: userData.user.event,
+            },
+            deleted: {},
+        },
+    });
+}
+
+export async function changeManufactureSolution(c: Context) {
+}
