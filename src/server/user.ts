@@ -2,7 +2,7 @@ import { Context } from "hono";
 import user from "../utils/userData.ts";
 import json from "../utils/json.ts";
 import { getRandomNumber, getRandomUniqueElements } from "../utils/random.ts";
-import { defaultPlayerDataDelta, extractCharInstId } from "../utils/mod.ts";
+import { defaultPlayerDataDelta } from "../utils/mod.ts";
 
 const SkinIdSeperator = new RegExp("[@#]");
 

@@ -2,7 +2,7 @@ import { Context } from "hono";
 import json from "../utils/json.ts";
 import config from "../config/mod.ts";
 import shop from "../utils/shop.ts";
-import { max, sumArr } from "../utils/numbers.ts";
+import { max, sum } from "../utils/numbers.ts";
 
 class CrisisRecord {
     internal: { previousMaxScore: number; previousScore: number[] };
@@ -151,7 +151,7 @@ export function crisisV2BattleFinish(c: Context) {
 
         let isNewRecord = false;
 
-        if (crisisRecord.internal.previousMaxScore < sumArr(scoreCurrent)) {
+        if (crisisRecord.internal.previousMaxScore < sum(...scoreCurrent)) {
             isNewRecord = true;
         }
 
@@ -173,7 +173,7 @@ export function crisisV2BattleFinish(c: Context) {
         };
 
         if (isNewRecord) {
-            crisisRecord.update(sumArr(scoreCurrent), scoreCurrent);
+            crisisRecord.update(sum(...scoreCurrent), scoreCurrent);
         }
 
         return c.json(result);
