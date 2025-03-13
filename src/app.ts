@@ -14,6 +14,7 @@ import {
     config,
     crisis,
     deepSea,
+    mail,
     online,
     pay,
     quest,
@@ -112,7 +113,7 @@ app.post("/crisisV2/getGoodList", crisis.crisisV2GetGoodList);
 app.post("/deepSea/branch", deepSea.deepSeaBranch);
 app.post("/deepSea/event", deepSea.deepSeaEvent);
 
-// app.post("/mail/getMetaInfoList", mail.mailGetMetaInfoList);
+app.post("/mail/getMetaInfoList", mail.mailGetMetaInfoList);
 // app.post("/mail/listMailBox", mail.mailListMailBox);
 // app.post("/mailCollection/getList", mail.mailCollectionGetList);
 // app.post("/mail/receiveMail", mail.mailReceiveMail);

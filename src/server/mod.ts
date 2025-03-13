@@ -10,6 +10,7 @@ export * as charm from "./charm.ts";
 export * as config from "./config.ts";
 export * as crisis from "./crisis.ts";
 export * as deepSea from "./deepSea.ts";
+export * as mail from "./mail.ts";
 export * as online from "./online.ts";
 export * as pay from "./pay.ts";
 export * as quest from "./quest.ts";
