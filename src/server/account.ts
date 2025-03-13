@@ -59,13 +59,14 @@ export function accountSyncPushMsg(c: Context) {
 export function accountSyncData(c: Context) {
     class Skill {
         skillId: string;
-        unlock: 1;
-        state: 0;
+        unlock = 1;
+        state = 0;
         specializeLevel: number;
-        completeUpgradeTime: -1;
+        completeUpgradeTime = -1;
 
-        constructor(skillId: string) {
+        constructor(skillId: string, specializeLevel: number) {
             this.skillId = skillId;
+            this.specializeLevel = specializeLevel;
         }
     }
 
@@ -89,9 +90,9 @@ export function accountSyncData(c: Context) {
         displaySkin: SKinDisplayDetail;
     }
 
-    function createSkills(...skills: string[]) {
+    function createSkills(level: number, ...skills: string[]) {
         return skills.map((v) => {
-            return new Skill(v);
+            return new Skill(v, level);
         });
     }
 
@@ -230,7 +231,8 @@ export function accountSyncData(c: Context) {
         for (const idx in characterData.skills) {
             const skillData = characterData.skills[parseInt(idx)];
 
-            const skill = new Skill(skillData.skillId);
+            const level = (character.evolvePhase === 2) ? 3 : 0;
+            const skill = new Skill(skillData.skillId, level);
 
             if (skillData.levelUpCostCond.length > 0) {
                 skill.specializeLevel = charConfig.skillsSpecializeLevel;
@@ -269,21 +271,21 @@ export function accountSyncData(c: Context) {
                 "char_002_amiya": {
                     skinId: "char_002_amiya@test#1",
                     defaultSkillIndex: 2,
-                    skills: createSkills("skcom_magic_rage[3]", "skchr_amiya_2", "skchr_amiya_3"),
+                    skills: createSkills(3, "skcom_magic_rage[3]", "skchr_amiya_2", "skchr_amiya_3"),
                     currentEquip: null,
                     equip: {},
                 },
                 "char_1001_amiya2": {
                     skinId: "char_1001_amiya2@casc#1",
                     defaultSkillIndex: 1,
-                    skills: createSkills("skchr_amiya2_1", "skchr_amiya2_2"),
+                    skills: createSkills(3, "skchr_amiya2_1", "skchr_amiya2_2"),
                     currentEquip: null,
                     equip: {},
                 },
                 "char_1037_amiya3": {
                     skinId: "char_1037_amiya3#2",
                     defaultSkillIndex: 1,
-                    skills: createSkills("skchr_amiya3_1", "skchr_amiya3_2"),
+                    skills: createSkills(3, "skchr_amiya3_1", "skchr_amiya3_2"),
                     currentEquip: null,
                     equip: {},
                 },
@@ -409,6 +411,37 @@ export function accountSyncData(c: Context) {
     }
 
     playerSyncData.user.retro.trail = trail;
+
+    const avatarIcons = {};
+    for (const avatar of displayMetaTable.playerAvatarData.avatarList) {
+        avatarIcons[avatar.avatarId] = {
+            ts,
+            src: (avatar.avatarId.startsWith("avatar_def") ? "start" : "other"),
+        };
+    }
+
+    playerSyncData.user.avatar.avatar_icon = avatarIcons;
+
+    const bgs = {};
+    for (const bg of displayMetaTable.homeBackgroundData.homeBgDataList) {
+        bgs[bg.bgID] = { unlock: ts };
+    }
+
+    playerSyncData.user.background.bgs = bgs;
+
+    const themes = {};
+    for (const theme of displayMetaTable.homeBackgroundData.themeList) {
+        themes[theme.id] = { unlock: ts };
+    }
+
+    playerSyncData.user.homeTheme.themes = themes;
+
+    const charms = {};
+    for (const charm of charmTable.charmList) {
+        charms[charm.id] = 1;
+    }
+
+    playerSyncData.user.charm.charms = charms;
 
     user.writeUserData(playerSyncData);
     return c.json(playerSyncData);
