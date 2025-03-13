@@ -11,6 +11,7 @@ export * as config from "./config.ts";
 export * as crisis from "./crisis.ts";
 export * as deepSea from "./deepSea.ts";
 export * as online from "./online.ts";
+export * as pay from "./pay.ts";
 export * as quest from "./quest.ts";
 export * as social from "./social.ts";
 export * as story from "./story.ts";

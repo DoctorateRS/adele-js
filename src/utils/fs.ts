@@ -1,4 +1,6 @@
 export class FsUtils {
+    encoder = new TextEncoder();
+
     constructor() {}
 
     stripPath(path: string, pathSeperator?: string) {
@@ -24,14 +26,14 @@ export class FsUtils {
         return Deno.readTextFileSync(path);
     }
 
-    writeFile(path: string, data: Uint8Array, opts?: Deno.WriteFileOptions) {
-        Deno.createSync(path);
-        Deno.writeFileSync(path, data, opts);
+    writeFile(path: string, data: Uint8Array) {
+        const tmpPath = this.stripPath(path);
+        Deno.mkdirSync(tmpPath, { recursive: true });
+        Deno.createSync(path).writeSync(data);
     }
 
-    writeTextFile(path: string, data: string, opts?: Deno.WriteFileOptions) {
-        Deno.createSync(path);
-        Deno.writeTextFileSync(path, data, opts ? opts : { create: true });
+    writeTextFile(path: string, data: string) {
+        this.writeFile(path, this.encoder.encode(data));
     }
 }
 

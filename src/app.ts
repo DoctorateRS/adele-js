@@ -15,16 +15,18 @@ import {
     crisis,
     deepSea,
     online,
+    pay,
     quest,
     social,
     story,
     templateShop,
     user,
 } from "./server/mod.ts";
+import { jsonLogger } from "./utils/json.ts";
 
 export const app = new Hono();
 
-app.use(logger());
+app.use(logger(), jsonLogger);
 
 app.post("/app/getSettings", user.appGetSettings);
 app.post("/app/getCode", user.appGetCode);
@@ -133,7 +135,7 @@ app.post("/user/online/v1/loginout", online.onlineV1LoginOut);
 
 // app.post("/pay/getUnconfirmedOrderIdList", pay.GetUnconfirmedOrderIdList);
 // app.post("/u8/pay/getAllProductList", pay.getAllProductList);
-// app.post("/pay/createOrder", pay.getcreateOrder);
+app.post("/pay/createOrder", pay.getCreateOrder);
 // app.post("/pay/v1/query_show_app_product", pay.queryshowappproduct);
 // app.get("/user/pay/v1/query_payment_config", pay.querypaymentconfig);
 // app.post("/user/pay/order/v1/create/app_product/alipay", pay.alipay);

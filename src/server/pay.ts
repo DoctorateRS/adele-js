@@ -27,3 +27,16 @@ export async function getCreateOrder(c: Context) {
         },
     });
 }
+
+export function queryShowAppProduct(c: Context) {
+    return c.json({
+        data: {
+            amount: 114514,
+            productName: "开采一箱源石",
+        },
+        isBox: false,
+        msg: "OK",
+        type: "A",
+        status: 0,
+    });
+}

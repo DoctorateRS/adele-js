@@ -1,3 +1,4 @@
+import { createMiddleware } from "hono/factory";
 import { Context } from "hono";
 import fs from "./fs.ts";
 
@@ -23,15 +24,15 @@ export class JsonUtils {
         return await this.fetchJson(url);
     }
 
-    readJson(path: string | URL) {
+    readJson(path: string) {
         return this.json.parse(this.fs.readTextFile(path));
     }
 
-    readJsonAs<T>(path: string | URL): T {
+    readJsonAs<T>(path: string): T {
         return this.json.parse(this.fs.readTextFile(path));
     }
 
-    writeJson(obj: object, path: string | URL, space?: string | number) {
+    writeJson(obj: object, path: string, space?: string | number) {
         this.fs.writeTextFile(path, this.dumpJson(obj, space));
     }
 }
@@ -55,3 +56,12 @@ export class JsonDumper {
         this.json.writeJson(obj, `${this.basePath}${url}/${time}.json`);
     }
 }
+
+export const jsonDumper = new JsonDumper();
+export const jsonLogger = createMiddleware(async (c, n) => {
+    try {
+        jsonDumper.dumpJson(c);
+    } catch { /* DOES NOTHING */ }
+
+    await n();
+});
