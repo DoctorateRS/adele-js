@@ -5,7 +5,7 @@ export class BattleReplayManager {
     basePath: string;
 
     constructor(basePath?: string) {
-        this.basePath = basePath ? basePath : "./resources/user/battleReplay.json";
+        this.basePath = basePath ? basePath : "./res/user/battleReplay.json";
     }
 
     readBattleReplay() {

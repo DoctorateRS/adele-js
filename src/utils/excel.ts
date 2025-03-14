@@ -5,7 +5,7 @@ export class ExcelReader {
     basePath: string;
 
     constructor(basePath?: string) {
-        this.basePath = basePath ? basePath : "./resources/excel/";
+        this.basePath = basePath ? basePath : "./res/excel/";
     }
 
     internal(name: string) {

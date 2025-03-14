@@ -152,4 +152,38 @@ export async function changeDiySolution(c: Context) {
 }
 
 export async function changeManufactureSolution(c: Context) {
+    const { roomSlotId, targetFormulaId, solutionCount } = await c.req.json();
+
+    const n = 3;
+    n.toString();
+
+    const syncData = user.readSyncData();
+    const userData = user.readUserData();
+
+    const outputSolutionCnt = userData.user.building.rooms["MANUFACTURE"][roomSlotId.toString()].outputSolutionCnt;
+    const formulaId = userData.user.building.rooms["MANUFACTURE"][roomSlotId.toString()];
+
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                building: user_sync_data["building"],
+                event: user_sync_data["event"],
+                inventory: user_sync_data["inventory"],
+                status: user_sync_data["status"],
+            },
+            deleted: {},
+        },
+    });
+}
+
+export function getClueBox(c: Context) {
+    return c.json({
+        box: [],
+    });
+}
+
+export function getClueFriendList(c: Context) {
+    return c.json({
+        result: [],
+    });
 }

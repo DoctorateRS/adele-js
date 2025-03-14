@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import battleReplay from "../utils/replay.ts";
 
-export async function questBattleStart(c: Context) {
+export async function battleStart(c: Context) {
     const req = await c.req.json();
     const battleReplayInst = battleReplay.readBattleReplay();
     battleReplayInst.current = req.stageId;
@@ -21,7 +21,7 @@ export async function questBattleStart(c: Context) {
     });
 }
 
-export function questBattleFinish(c: Context) {
+export function battleFinish(c: Context) {
     return c.json({
         result: 0,
         apFailReturn: 0,
@@ -41,4 +41,52 @@ export function questBattleFinish(c: Context) {
             deleted: {},
         },
     });
+}
+
+export async function saveBattleReplay(c: Context) {
+    const req = await c.req.json();
+
+    const battleReplayInst = battleReplay.readBattleReplay();
+    const charConfig = battleReplayInst.currentCharConfig;
+
+    if (Object.keys(battleReplayInst.saved).includes(charConfig)) {
+        battleReplayInst.saved[charConfig][battleReplayInst.current] = req.battleReplay;
+    } else {
+        battleReplayInst.saved[charConfig] = { [battleReplayInst.current]: req.battleReplay };
+    }
+
+    const cur = battleReplayInst.current;
+    battleReplayInst.current = null;
+    battleReplay.writeBattleReplay(battleReplayInst);
+
+    return c.json({
+        result: 0,
+        playerDataDelta: {
+            modified: { dungeon: { stages: { [<string> cur]: { hasBattleReplay: 1 } } } },
+            deleted: {},
+        },
+    });
+}
+
+export async function getBattleReplay(c: Context) {
+    const req = await c.req.json();
+    const battleReplayInst = battleReplay.readBattleReplay();
+
+    return c.json({
+        battleReplay: battleReplayInst.saved[battleReplayInst.currentCharConfig][req.stageId],
+        playerDataDelta: {
+            modified: {},
+            deleted: {},
+        },
+    });
+}
+
+export async function changeSquadName(c: Context) {
+    const req = await c.req.json();
+    const res = {
+        playerDataDelta: {
+            modified: { troop: { squads: {} } },
+            deleted: {},
+        },
+    };
 }

@@ -18,7 +18,7 @@ export class AssetDownloader {
         }
 
         const buf = new Uint8Array(await req.arrayBuffer());
-        this.fs.writeFile(this.basePath + asset.hash + "/redirect/" + asset.name, buf, { create: true });
+        this.fs.writeFile(this.basePath + asset.hash + "/redirect/" + asset.name, buf);
         return buf;
     }
 }
