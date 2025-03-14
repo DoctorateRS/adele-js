@@ -4,7 +4,7 @@ import cache from "./utils/cache.ts";
 import { updateConfig, updateExcel } from "./utils/update/mod.ts";
 
 const lastUpdated = Date.now() - cache.readTimeCache().time;
-if (config.assets.autoUpdate && (lastUpdated < 86400000)) {
+if (config.assets.autoUpdate && (lastUpdated > 86400000)) {
     if (await updateConfig()) {
         await updateExcel();
     }

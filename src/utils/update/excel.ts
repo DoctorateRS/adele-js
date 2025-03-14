@@ -55,7 +55,9 @@ const excelFiles = [
 
 export async function updateExcel() {
     for (const file of excelFiles) {
+        console.log(`UPDATE -> Fetching ${file}...`);
         const content = await json.fetchJson(`https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/excel/${file}`);
-        json.writeJson(content, `./resources/excel/${file}`);
+        console.log(`UPDATE -> Writing ${file}...`);
+        json.writeJson(content, `./res/excel/${file}`);
     }
 }
