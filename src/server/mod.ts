@@ -15,6 +15,7 @@ export * as online from "./online.ts";
 export * as pay from "./pay.ts";
 export * as quest from "./quest.ts";
 export * as social from "./social.ts";
+export * as shop from "./shop.ts";
 export * as story from "./story.ts";
 export * as templateShop from "./templateShop.ts";
 export * as user from "./user.ts";

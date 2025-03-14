@@ -18,6 +18,7 @@ import {
     online,
     pay,
     quest,
+    shop,
     social,
     story,
     templateShop,
@@ -185,15 +186,15 @@ app.post("/activity/bossRush/battleFinish", quest.questBattleFinish);
 // app.post("/rlv2/chooseBattleReward", rlv2.rlv2ChooseBattleReward);
 // app.post("/rlv2/shopAction", rlv2.rlv2shopAction);
 
-// app.post("/shop/getGoodPurchaseState", shop.getGoodPurchaseState);
-// app.post("/shop/get<string:shop_type>GoodList", shop.getShopGoodList);
-// app.post("/shop/buySkinGood", shop.buySkinGood);
-// app.post("/shop/buyLowGood", shop.buyLowGood);
+app.post("/shop/buySkinGood", shop.buySkinGood);
+app.post("/shop/buyLowGood", shop.buyLowGood);
 // app.post("/shop/buyHighGood", shop.buyHighGood);
 // app.post("/shop/buyExtraGood", shop.buyExtraGood);
 // app.post("/shop/buyClassicGood", shop.buyClassicGood);
 // app.post("/shop/buyFurniGood", shop.buyFurniGood);
 // app.post("/shop/buyFurniGroup", shop.buyFurniGroup);
+app.post("/shop/getGoodPurchaseState", shop.getGoodPurchaseState);
+app.post("/shop/:shopQuery", shop.getShopGoodList);
 
 app.post("/templateShop/getGoodList", templateShop.getGoodList);
 app.post("/templateShop/BuyGood", templateShop.buyGood);
