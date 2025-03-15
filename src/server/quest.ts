@@ -1,5 +1,9 @@
 import { Context } from "hono";
 import battleReplay from "../utils/replay.ts";
+import user from "../utils/userData.ts";
+import { assist } from "../models/mod.ts";
+import config from "../config/mod.ts";
+import { extractCharInstId } from "../utils/mod.ts";
 
 export async function battleStart(c: Context) {
     const req = await c.req.json();
@@ -83,10 +87,86 @@ export async function getBattleReplay(c: Context) {
 
 export async function changeSquadName(c: Context) {
     const req = await c.req.json();
+
     const res = {
         playerDataDelta: {
-            modified: { troop: { squads: {} } },
+            modified: {
+                troop: {
+                    squads: {
+                        [req.squadId.toString()]: {
+                            name: req.name,
+                        },
+                    },
+                },
+            },
             deleted: {},
         },
     };
+
+    const userData = user.readUserData();
+    const syncData = user.readSyncData();
+    userData.user.troop.squads[req.squadId.toString()].name = req.name;
+    syncData.user.troop.squads[req.squadId.toString()].name = req.name;
+
+    user.writeUserData(userData);
+    user.writeSyncData(syncData);
+
+    return c.json(res);
+}
+
+export async function changeSquadFormation(c: Context) {
+    const req = await c.req.json();
+
+    const res = {
+        playerDataDelta: {
+            modified: {
+                troop: {
+                    squads: {
+                        [req.squadId.toString()]: {
+                            slots: req.slots,
+                        },
+                    },
+                },
+            },
+            deleted: {},
+        },
+    };
+
+    const userData = user.readUserData();
+    const syncData = user.readSyncData();
+    userData.user.troop.squads[req.squadId.toString()].slots = req.slots;
+    syncData.user.troop.squads[req.squadId.toString()].slots = req.slots;
+
+    user.writeUserData(userData);
+    user.writeSyncData(syncData);
+
+    return c.json(res);
+}
+
+export function getAssistList(c: Context) {
+    const userData = user.readUserData();
+    const res = {
+        allowAskTs: Date.now(),
+        assistList: [],
+        playerDataDelta: {
+            modified: {},
+            deleted: {},
+        },
+    };
+
+    let chars = [];
+    for (const assistIdx of config.user.assists) {
+        if (chars.length === 3) {
+            const assister = new assist.Assister();
+            assister.assistCharList = chars;
+            res.assistList.push(assister);
+
+            chars = [];
+        }
+
+        const idx = extractCharInstId(assistIdx).toString();
+        chars.push(userData.user.troop.chars[idx]);
+    }
+
+    return c.json(res);
 }

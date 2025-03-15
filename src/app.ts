@@ -77,8 +77,8 @@ app.post("/campaignV2/battleSweep", campaignV2.campaignV2BattleSweep);
 
 app.post("/char/changeMarkStar", char.charChangeMarkStar);
 
-app.post("/charBuild/addonStage/battleStart", quest.questBattleStart);
-app.post("/charBuild/addonStage/battleFinish", quest.questBattleFinish);
+app.post("/charBuild/addonStage/battleStart", quest.battleStart);
+app.post("/charBuild/addonStage/battleFinish", quest.battleFinish);
 app.post("/charBuild/addonStory/unlock", charBuild.charBuildaddonStoryUnlock);
 app.post("/charBuild/batchSetCharVoiceLan", charBuild.charBuildBatchSetCharVoiceLan);
 app.post("/charBuild/setCharVoiceLan", charBuild.charBuildSetCharVoiceLan);

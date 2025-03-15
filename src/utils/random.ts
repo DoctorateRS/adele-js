@@ -1,55 +1,76 @@
 import { sort } from "./numbers.ts";
 
-const charPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+export class Random {
+    constructor() {}
 
-export function getRandomName(len?: number) {
-    return getRandomElements(charPool, len ? len : 8);
-}
+    getRandomNumber(param1: number, param2: number = 0) {
+        const [e, s] = sort(param1, param2);
+        return Math.floor(Math.random() * (e - s) + s);
+    }
 
-export function getRandomNumber(param1: number, param2?: number) {
-    param2 = param2 ? param2 : 0;
-    const [e, s] = sort(param1, param2);
-    return Math.floor(Math.random() * (e - s) + s);
-}
+    getRandomElement<T>(elems: T[]) {
+        return elems[this.getRandomNumber(elems.length)];
+    }
 
-export function getRandomElement<T>(elems: string | T[]) {
-    return elems[getRandomNumber(elems.length)];
-}
+    getRandomElements<T>(elems: T[], amount: number): T[] {
+        const accum = [];
 
-export function getRandomElements<T>(elems: string | T[], amount: number): T[] | string {
-    switch (typeof elems) {
-        case "string": {
-            let accum = "";
+        while (accum.length < amount) {
+            accum.push(this.getRandomElement(elems));
+        }
 
-            while (accum.length < amount) {
-                accum += getRandomElement(elems);
+        return accum;
+    }
+
+    getRandomUniqueElements<T>(elems: T[], amount: number): T[] {
+        const accum = [];
+
+        while (accum.length < amount) {
+            let elem = this.getRandomElement(elems);
+            while (accum.includes(elem)) {
+                elem = this.getRandomElement(elems);
             }
 
-            return accum;
+            accum.push(elem);
         }
-        default: {
-            const accum = [];
 
-            while (accum.length < amount) {
-                accum.push(getRandomElement(elems));
-            }
-
-            return accum;
-        }
+        return accum;
     }
 }
 
-export function getRandomUniqueElements<T>(elems: T[], amount: number): T[] {
-    const accum = [];
+export const random = new Random();
 
-    while (accum.length < amount) {
-        let elem = getRandomElement(elems);
-        while (accum.includes(elem)) {
-            elem = getRandomElement(elems);
+export class RandomStringGenerator {
+    readonly fullCharPool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    readonly charPool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ";
+    readonly numPool = "0123456789";
+    random = random;
+
+    constructor() {}
+
+    generateString(len: number = 8, pool: "Full" | "Uppercase" | "Number" = "Full") {
+        let localPool = "";
+
+        switch (pool) {
+            case "Full":
+                localPool = this.fullCharPool;
+                break;
+            case "Uppercase":
+                localPool = this.charPool;
+                break;
+            case "Number":
+                localPool = this.numPool;
+                break;
         }
 
-        accum.push(elem);
-    }
+        let str = "";
 
-    return accum;
+        for (let cnt = 0; cnt < len; cnt++) {
+            str += localPool[this.random.getRandomNumber(localPool.length)];
+        }
+
+        return str;
+    }
 }
+
+export const randomString = new RandomStringGenerator();

@@ -41,6 +41,9 @@
         "6": 1.0
     },
     "user": {
+        "assists": [
+            "char_1035_wisdel"
+        ],
         "activityMinStartTs": 1712203200,
         "activityMaxStartTs": 1715284799,
         "background": "bg_sui_1",
