@@ -25,6 +25,18 @@ export async function battleStart(c: Context) {
     });
 }
 
+export function battleContinue(c: Context) {
+    return c.json({
+        result: 0,
+        battleId: "abcdefgh-1234-5678-a1b2c3d4e5f6",
+        apFailReturn: 0,
+        playerDataDelta: {
+            modified: {},
+            deleted: {},
+        },
+    });
+}
+
 export function battleFinish(c: Context) {
     return c.json({
         result: 0,
@@ -169,4 +181,143 @@ export function getAssistList(c: Context) {
     }
 
     return c.json(res);
+}
+
+export function markStoryAcceKnown(c: Context) {
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                storyreview: {
+                    tags: { knownStoryAcceleration: 1 },
+                },
+            },
+            deleted: {},
+        },
+    });
+}
+
+export async function changeBattleCar(c: Context) {
+    const req = await c.req.json();
+
+    const userData = user.readUserData();
+    const syncData = user.readSyncData();
+
+    userData.user.car.battleCar = req.car;
+    syncData.user.car.battleCar = req.car;
+
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                car: {
+                    battleCar: req.car,
+                },
+            },
+            deleted: {},
+        },
+    });
+}
+
+export function type20ActSideCompetitionStart(c: Context) {
+    return c.json({
+        result: 0,
+        battleId: "abcdefgh-1234-5678-a1b2c3d4e5f6",
+        playerDataDelta: {
+            modified: {},
+            deleted: {},
+        },
+    });
+}
+
+export function type20ActSideCompetitionFinish(c: Context) {
+    return c.json({
+        performance: 0,
+        expression: 0,
+        operation: 0,
+        total: 0,
+        level: "B",
+        isNew: false,
+        playerDataDelta: {
+            modified: {},
+            deleted: {},
+        },
+    });
+}
+
+export function readStory(c: Context) {
+    return c.json({
+        readStory: 1,
+        playerDataDelta: {
+            modified: {},
+            deleted: {},
+        },
+    });
+}
+
+export async function setTrapSquad(c: Context) {
+    const req = await c.req.json();
+
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                templateTrap: {
+                    domains: {
+                        [req.trapDomainId]: {
+                            squad: req.trapSquad,
+                        },
+                    },
+                },
+            },
+            deleted: {},
+        },
+    });
+}
+
+export async function relicSelect(c: Context) {
+    const req = await c.req.json();
+
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                activity: {
+                    ["BOSS_RUSH"]: {
+                        [req.activityId]: {
+                            relic: {
+                                select: req.relicId,
+                            },
+                        },
+                    },
+                },
+            },
+            deleted: {},
+        },
+    });
+}
+
+export async function setTool(c: Context) {
+    const req = await c.req.json();
+    const tools = {
+        ["tool_trap"]: 1,
+        ["tool_wirebug"]: 1,
+        ["tool_flashbomb"]: 1,
+        ["tool_bomb"]: 1,
+    };
+
+    for (const key in req.tools) {
+        tools[key] = 2;
+    }
+
+    return c.json({
+        playerDataDelta: {
+            modified: {
+                activity: {
+                    ["TYPE_ACT24SIDE"]: {
+                        act24side: {
+                            tool: tools,
+                        },
+                    },
+                },
+            },
+            deleted: {},
+        },
+    });
 }
