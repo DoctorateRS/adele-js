@@ -82,11 +82,17 @@ export async function saveBattleReplay(c: Context) {
 }
 
 export async function getBattleReplay(c: Context) {
-    const req = await c.req.json();
+    try {
+        const req = await c.req.json();
 
-    return c.json({
-        battleReplay: await battleReplay.load(req.stageId),
-    });
+        return c.json({
+            battleReplay: await battleReplay.load(req.stageId),
+        });
+    } catch {
+        return c.json({
+            battleReplay: "",
+        });
+    }
 }
 
 export async function changeSquadName(c: Context) {
