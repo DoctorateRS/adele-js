@@ -4,8 +4,8 @@ export class UserDataManager {
     basePath: string;
     json = json;
 
-    constructor(basePath?: string) {
-        this.basePath = basePath ? basePath : "./res/user/";
+    constructor(basePath: string = "./res/user/") {
+        this.basePath = basePath;
     }
 
     readUserData() {

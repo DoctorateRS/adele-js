@@ -6,8 +6,6 @@ export class JsonUtils {
     fs = fs;
     json = JSON;
 
-    constructor() {}
-
     dumpJson(obj: object, space?: string | number) {
         return this.json.stringify(obj, null, space ? space : "    ");
     }
@@ -24,12 +22,20 @@ export class JsonUtils {
         return await this.fetchJson(url);
     }
 
+    parseJson(src: string) {
+        return this.json.parse(src);
+    }
+
+    parseJsonAs<T>(src: string): T {
+        return this.json.parse(src);
+    }
+
     readJson(path: string) {
-        return this.json.parse(this.fs.readTextFile(path));
+        return this.parseJson(this.fs.readTextFile(path));
     }
 
     readJsonAs<T>(path: string): T {
-        return this.json.parse(this.fs.readTextFile(path));
+        return this.parseJsonAs(this.fs.readTextFile(path));
     }
 
     writeJson(obj: object, path: string, space?: string | number) {
@@ -44,8 +50,8 @@ export class JsonDumper {
     json = json;
     basePath: string;
 
-    constructor(basePath?: string) {
-        this.basePath = basePath ? basePath : "./dump";
+    constructor(basePath: string = "./dump") {
+        this.basePath = basePath;
     }
 
     async dumpJson(c: Context) {

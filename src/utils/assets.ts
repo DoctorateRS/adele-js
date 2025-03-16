@@ -5,8 +5,8 @@ export class AssetDownloader {
     basePath: string;
     fs = fs;
 
-    constructor(basePath?: string) {
-        this.basePath = basePath ? basePath : "./assets/";
+    constructor(basePath: string = "./assets/") {
+        this.basePath = basePath;
     }
 
     async downloadAsset(url: URL | string, asset: { hash: string; name: string }) {
@@ -28,7 +28,7 @@ export class AssetsList {
     inner: { [key: string]: string[] };
     json = json;
 
-    constructor(basePath?: string) {
+    constructor(basePath: string = "./assets/assets.json") {
         this.path = basePath ? basePath : "./assets/assets.json";
 
         try {

@@ -4,8 +4,8 @@ export class TemplateManager {
     json = json;
     basePath: string;
 
-    constructor(basePath?: string) {
-        this.basePath = basePath ? basePath : "./res/tmpl/";
+    constructor(basePath: string = "./res/tmpl/") {
+        this.basePath = basePath;
     }
 
     rlv2Tmpl() {

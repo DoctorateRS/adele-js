@@ -1,8 +1,6 @@
 import { sort } from "./numbers.ts";
 
 export class Random {
-    constructor() {}
-
     getRandomNumber(param1: number, param2: number = 0) {
         const [e, s] = sort(param1, param2);
         return Math.floor(Math.random() * (e - s) + s);
@@ -45,8 +43,6 @@ export class RandomStringGenerator {
     readonly charPool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ";
     readonly numPool = "0123456789";
     random = random;
-
-    constructor() {}
 
     generateString(len: number = 8, pool: "Full" | "Uppercase" | "Number" = "Full") {
         let localPool = "";

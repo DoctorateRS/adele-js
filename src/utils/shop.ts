@@ -4,8 +4,8 @@ export class ShopManager {
     basePath: string;
     json = json;
 
-    constructor(basePath?: string) {
-        this.basePath = basePath ? basePath : "./res/shop/";
+    constructor(basePath: string = "./res/shop/") {
+        this.basePath = basePath;
     }
 
     shop() {

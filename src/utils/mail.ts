@@ -4,7 +4,7 @@ export class MailManager {
     json = json;
     basePath: string;
 
-    constructor(basePath?: string) {
+    constructor(basePath: string = "./res/user/mails.json") {
         this.basePath = basePath ? basePath : "./res/user/mails.json";
     }
 

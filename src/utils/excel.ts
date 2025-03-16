@@ -4,7 +4,7 @@ export class ExcelReader {
     json = json;
     basePath: string;
 
-    constructor(basePath?: string) {
+    constructor(basePath: string = "./res/excel/") {
         this.basePath = basePath ? basePath : "./res/excel/";
     }
 

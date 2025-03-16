@@ -5,8 +5,8 @@ export class CacheManager {
     basePath: string;
     json = json;
 
-    constructor(basePath?: string) {
-        this.basePath = basePath ? basePath : "./cache/";
+    constructor(basePath: string = "./cache/") {
+        this.basePath = basePath;
     }
 
     writeCache(obj: object, cacheType: "version" | "network" | "time") {

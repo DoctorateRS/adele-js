@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import battleReplay from "../utils/replay.ts";
+import battleReplay from "../utils/battleReplay.ts";
 import user from "../utils/userData.ts";
 import { assist } from "../models/mod.ts";
 import config from "../config/mod.ts";

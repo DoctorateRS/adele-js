@@ -2,7 +2,7 @@ export class FsUtils {
     pathSeperator: string;
     encoder = new TextEncoder();
 
-    constructor(pathSeperator?: string) {
+    constructor(pathSeperator: string = "/") {
         this.pathSeperator = pathSeperator ? pathSeperator : "/";
     }
 
