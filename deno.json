@@ -8,6 +8,7 @@
         "hono": "npm:hono@^4.6"
     },
     "tasks": {
+        "install": "deno install",
         "start": "deno run --allow-all src/main.ts",
         "startWatching": "deno run --allow-all --watch-hmr src/main.ts",
         "compile": "deno compile --target x86_64-pc-windows-msvc -o ./dist/adele.exe src/main.ts"
