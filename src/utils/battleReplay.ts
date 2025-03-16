@@ -37,12 +37,11 @@ const utils = new BattleReplayUtilities();
 
 export class BattleReplayManager {
     readonly encoder = new TextEncoder();
-    decoder = new TextDecoder();
-    json = json;
-    zip = zip;
-    base64 = base64;
-
-    utils = utils;
+    readonly decoder = new TextDecoder();
+    readonly json = json;
+    readonly zip = zip;
+    readonly base64 = base64;
+    readonly utils = utils;
 
     async encode(battleReplay: object) {
         const br = this.json.dumpJson(battleReplay, "");
@@ -56,6 +55,21 @@ export class BattleReplayManager {
             return (v.name === "default_entry");
         });
         return this.json.parseJson(this.decoder.decode(inst.data));
+    }
+
+    async save(stageId: string, battleReplay: string) {
+        const br = this.utils.readBattleReplay();
+        const brObj = await this.decode(battleReplay);
+
+        br.saved[br.currentCharConfig][stageId] = brObj;
+        this.utils.writeBattleReplay(br);
+    }
+
+    async load(stageId: string) {
+        const br = this.utils.readBattleReplay();
+        const brInst = br.saved[br.currentCharConfig][stageId];
+
+        return await this.encode(brInst);
     }
 }
 

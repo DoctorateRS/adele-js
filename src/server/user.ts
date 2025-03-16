@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import user from "../utils/userData.ts";
 import json from "../utils/json.ts";
-import { getRandomNumber, getRandomUniqueElements } from "../utils/random.ts";
+import { random } from "../utils/random.ts";
 import { defaultPlayerDataDelta } from "../utils/mod.ts";
 
 const SkinIdSeperator = new RegExp("[@#]");
@@ -268,13 +268,13 @@ export async function getOtherPlayerNameCard(c: Context) {
     const userData = user.readUserData();
 
     const assistList = Object.keys(userData.user.troop.chars);
-    const [op1, op2, op3] = getRandomUniqueElements(assistList, 3).map(parseInt);
+    const [op1, op2, op3] = random.getRandomUniqueElements(assistList, 3).map(parseInt);
 
     const [op1Inst, op2Inst, op3Inst] = [op1, op2, op3].map((v) => {
         return userData.user.troop.chars[v.toString()];
     });
 
-    const nickNumber = getRandomNumber(10000);
+    const nickNumber = random.getRandomNumber(10000);
     return c.json({
         nameCard: {
             nickName: "ABCDEFG",

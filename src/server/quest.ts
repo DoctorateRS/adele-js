@@ -7,9 +7,9 @@ import { extractCharInstId } from "../utils/mod.ts";
 
 export async function battleStart(c: Context) {
     const req = await c.req.json();
-    const battleReplayInst = battleReplay.readBattleReplay();
+    const battleReplayInst = battleReplay.utils.readBattleReplay();
     battleReplayInst.current = req.stageId;
-    battleReplay.writeBattleReplay(battleReplayInst);
+    battleReplay.utils.writeBattleReplay(battleReplayInst);
 
     return c.json({
         apFailReturn: 0,
@@ -61,24 +61,21 @@ export function battleFinish(c: Context) {
 
 export async function saveBattleReplay(c: Context) {
     const req = await c.req.json();
-
-    const battleReplayInst = battleReplay.readBattleReplay();
-    const charConfig = battleReplayInst.currentCharConfig;
-
-    if (Object.keys(battleReplayInst.saved).includes(charConfig)) {
-        battleReplayInst.saved[charConfig][battleReplayInst.current] = req.battleReplay;
-    } else {
-        battleReplayInst.saved[charConfig] = { [battleReplayInst.current]: req.battleReplay };
-    }
-
-    const cur = battleReplayInst.current;
-    battleReplayInst.current = null;
-    battleReplay.writeBattleReplay(battleReplayInst);
+    const brInst = battleReplay.utils.readBattleReplay();
+    await battleReplay.save(brInst.current, req.battleReplay);
 
     return c.json({
         result: 0,
         playerDataDelta: {
-            modified: { dungeon: { stages: { [<string> cur]: { hasBattleReplay: 1 } } } },
+            modified: {
+                dungeon: {
+                    stages: {
+                        [<string> brInst.current]: {
+                            hasBattleReplay: 1,
+                        },
+                    },
+                },
+            },
             deleted: {},
         },
     });
@@ -86,14 +83,9 @@ export async function saveBattleReplay(c: Context) {
 
 export async function getBattleReplay(c: Context) {
     const req = await c.req.json();
-    const battleReplayInst = battleReplay.readBattleReplay();
 
     return c.json({
-        battleReplay: battleReplayInst.saved[battleReplayInst.currentCharConfig][req.stageId],
-        playerDataDelta: {
-            modified: {},
-            deleted: {},
-        },
+        battleReplay: await battleReplay.load(req.stageId),
     });
 }
 
