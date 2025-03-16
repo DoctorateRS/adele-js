@@ -6,6 +6,9 @@
     "jsr:@quentinadam/uint8array-extension@~0.1.5": "0.1.5",
     "jsr:@quentinadam/zip@0.1": "0.1.4",
     "jsr:@sigma/rust-base64@0.2": "0.2.7",
+    "jsr:@std/crypto@*": "1.0.4",
+    "jsr:@std/fs@*": "1.0.11",
+    "jsr:@std/path@^1.0.8": "1.0.8",
     "npm:biome@0.3.3": "0.3.3",
     "npm:hono@^4.6.0": "4.6.20"
   },
@@ -35,6 +38,18 @@
     },
     "@sigma/rust-base64@0.2.7": {
       "integrity": "3b9c878f2187f81e0c50516fe554ac706da7d416384c147e66d26e423eaff818"
+    },
+    "@std/crypto@1.0.4": {
+      "integrity": "cee245c453bd5366207f4d8aa25ea3e9c86cecad2be3fefcaa6cb17203d79340"
+    },
+    "@std/fs@1.0.11": {
+      "integrity": "ba674672693340c5ebdd018b4fe1af46cb08741f42b4c538154e97d217b55bdd",
+      "dependencies": [
+        "jsr:@std/path"
+      ]
+    },
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
     }
   },
   "npm": {
@@ -611,6 +626,8 @@
     "dependencies": [
       "jsr:@quentinadam/zip@0.1",
       "jsr:@sigma/rust-base64@0.2",
+      "jsr:@std/crypto@*",
+      "jsr:@std/fs@*",
       "npm:hono@^4.6.0"
     ]
   }
