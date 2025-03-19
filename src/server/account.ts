@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import excel from "../utils/excel.ts";
 import config from "../config/mod.ts";
-import { max, min } from "../utils/numbers.ts";
+import { max, min, repeat } from "../utils/numbers.ts";
 import user from "../utils/userData.ts";
 
 const specialOperators = [
@@ -442,6 +442,35 @@ export function accountSyncData(c: Context) {
     }
 
     playerSyncData.user.charm.charms = charms;
+
+    for (const carGear in activityTable.carData.carDict) {
+        playerSyncData.user.car.accessories[carGear] = {
+            id: carGear,
+            num: activityTable.carData.carDict[carGear].posList.length,
+        };
+    }
+
+    const deepSeaData = activityTable.activity["TYPE_ACT17SIDE"]["act17side"];
+
+    for (const place in deepSeaData.placeDataMap) {
+        playerSyncData.user.deepSea.places[place] = 2;
+    }
+
+    for (const node in deepSeaData.nodeInfoDataMap) {
+        playerSyncData.user.deepSea.nodes[node] = 2;
+    }
+
+    for (const choice in deepSeaData.choiceNodeDataMap) {
+        playerSyncData.user.deepSea.choices[choice] = repeat([2], deepSeaData.choiceNodeDataMap[choice].optionList.length);
+    }
+
+    for (const event in deepSeaData.eventDataMap) {
+        playerSyncData.user.deepSea.events[event] = 1;
+    }
+
+    for (const treasure in deepSeaData.treasureNodeDataMap) {
+        playerSyncData.user.deepSea.treasures[treasure] = 1;
+    }
 
     user.writeUserData(playerSyncData);
     return c.json(playerSyncData);
