@@ -166,10 +166,10 @@ export async function changeManufactureSolution(c: Context) {
     return c.json({
         playerDataDelta: {
             modified: {
-                building: user_sync_data["building"],
-                event: user_sync_data["event"],
-                inventory: user_sync_data["inventory"],
-                status: user_sync_data["status"],
+                //    building: user_sync_data["building"],
+                //    event: user_sync_data["event"],
+                //    inventory: user_sync_data["inventory"],
+                //    status: user_sync_data["status"],
             },
             deleted: {},
         },

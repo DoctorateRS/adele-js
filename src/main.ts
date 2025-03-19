@@ -10,5 +10,5 @@ if (config.assets.autoUpdate && (lastUpdated > 86400000)) {
     }
 }
 
-console.log(`Server is running on http://${config.server.host}:${config.server.host}`);
+console.log(`Server is running on http://${config.server.host}:${config.server.port}`);
 Deno.serve({ hostname: config.server.host, port: config.server.port }, app.fetch);
