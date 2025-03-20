@@ -472,6 +472,37 @@ export function accountSyncData(c: Context) {
         playerSyncData.user.deepSea.treasures[treasure] = 1;
     }
 
+    for (const story in deepSeaData.storyNodeDataMap) {
+        playerSyncData.user.deepSea.stories[deepSeaData.storyNodeDataMap[story].storyKey] = 1;
+    }
+
+    for (const tech in deepSeaData.techTreeDataMap) {
+        playerSyncData.user.deepSea.techTrees[tech] = {
+            state: 2,
+            branch: deepSeaData.techTreeDataMap[tech].defaultBranchId,
+        };
+    }
+
+    for (const log in deepSeaData.archiveItemUnlockDataMap) {
+        if (!log.startsWith("act17side_log_")) {
+            continue;
+        }
+
+        const chapter = deepSeaData.archiveItemUnlockDataMap[log].chapterId;
+
+        if (Object.hasOwn(playerSyncData.user.deepSea.logs, chapter)) {
+            playerSyncData.user.deepSea.logs[chapter].push(log);
+        } else {
+            playerSyncData.user.deepSea.logs[chapter] = [log];
+        }
+    }
+
+    // received_set = set(mail_data["recievedIDs"])
+    // deleted_set = set(mail_data["deletedIDs"])
+    // all_mails = set(mail_data["mailList"].keys())
+    // if not all_mails - (received_set | deleted_set):
+    //      player_data["user"]["pushFlags"]["hasGifts"] = 1
+
     user.writeUserData(playerSyncData);
     return c.json(playerSyncData);
 }
