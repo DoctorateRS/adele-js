@@ -7,12 +7,12 @@ import { max, sum } from "../utils/numbers.ts";
 class CrisisRecord {
     internal: { previousMaxScore: number; previousScore: number[] };
 
-    constructor(default_value?: { previousMaxScore: number; previousScore: number[] }) {
+    constructor(default_value: { previousMaxScore?: number; previousScore?: number[] }) {
         try {
             this.internal = json.readJson("./resources/user/crisisRecord.json");
         } catch {
             this.internal.previousMaxScore = default_value.previousMaxScore ? default_value.previousMaxScore : 0;
-            this.internal.previousScore = (default_value.previousScore || default_value.previousScore.length !== 6) ? default_value.previousScore : [0, 0, 0, 0, 0, 0];
+            this.internal.previousScore = (default_value.previousScore && default_value.previousScore.length === 6) ? default_value.previousScore : [0, 0, 0, 0, 0, 0];
         }
     }
 
@@ -53,7 +53,7 @@ export async function crisisV2BattleStart(c: Context) {
 
 export function crisisV2BattleFinish(c: Context) {
     try {
-        const crisisRecord = new CrisisRecord();
+        const crisisRecord = new CrisisRecord({});
         const battleData = json.readJson("./resources/user/rune.json");
 
         const runes = json.readJson(`"./resources/cc/${config.season.crisisV2}"`);
@@ -78,14 +78,15 @@ export function crisisV2BattleFinish(c: Context) {
                 nodes[nodeSlotPackId] = {};
             }
 
-            let mutualExclusionGroup;
+            // TODO: define
+            let mutualExclusionGroup: string | null;
             if (nodeData.mutualExclusionGroup) {
                 mutualExclusionGroup = slot;
             } else {
                 mutualExclusionGroup = nodeData.mutualExclusionGroup;
             }
 
-            if (!Object.keys(nodes[nodeSlotPackId]).includes(mutualExclusionGroup)) {
+            if (mutualExclusionGroup !== null && !Object.keys(nodes[nodeSlotPackId]).includes(mutualExclusionGroup)) {
                 nodes[nodeSlotPackId][mutualExclusionGroup] = {};
             }
 
