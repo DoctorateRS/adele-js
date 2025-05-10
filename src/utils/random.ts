@@ -11,7 +11,7 @@ export class Random {
     }
 
     getRandomElements<T>(elems: T[], amount: number): T[] {
-        const accum = [];
+        const accum: T[] = [];
 
         while (accum.length < amount) {
             accum.push(this.getRandomElement(elems));
@@ -21,10 +21,11 @@ export class Random {
     }
 
     getRandomUniqueElements<T>(elems: T[], amount: number): T[] {
-        const accum = [];
+        const accum: T[] = [];
 
         while (accum.length < amount) {
             let elem = this.getRandomElement(elems);
+
             while (accum.includes(elem)) {
                 elem = this.getRandomElement(elems);
             }
@@ -39,12 +40,16 @@ export class Random {
 export const random = new Random();
 
 export class RandomStringGenerator {
-    readonly fullCharPool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    readonly fullCharPool =
+        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
     readonly charPool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ";
     readonly numPool = "0123456789";
     random = random;
 
-    generateString(len: number = 8, pool: "Full" | "Uppercase" | "Number" = "Full") {
+    generateString(
+        len: number = 8,
+        pool: "Full" | "Uppercase" | "Number" = "Full",
+    ) {
         let localPool = "";
 
         switch (pool) {
