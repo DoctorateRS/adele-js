@@ -1,16 +1,10 @@
 {
     "$schema": "https://deno.land/x/deno@v2.1.9/cli/schemas/config-file.v1.json",
-    "tasks": {},
     "imports": {
-        "oak": "jsr:@oak/oak"
+        "hono": "jsr:@hono/hono@^4.6.20"
     },
-    "fmt": {
-        "indentWidth": 4,
-        "lineWidth": 144
+    "tasks": {
+        "start": "deno run --allow-net --allow-read --allow-write src/main.ts"
     },
-    "lint": {
-        "include": [
-            "src/"
-        ]
-    }
+    "compilerOptions": {}
 }
